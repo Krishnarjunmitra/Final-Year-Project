@@ -1,20 +1,8 @@
 {
-  "version": 2,
-  "name": "final-year-project",
-  "builds": [
+  "rewrites": [
     {
-      "src": "report.html",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/",
-      "dest": "/report.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
+      "source": "/",
+      "destination": "/report.html"
     }
   ]
 }
