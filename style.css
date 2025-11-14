@@ -233,6 +233,17 @@
       width: 100%;
     }
 
+    /* Pipeline architecture - full width single column */
+    #diagram-pipeline-architecture {
+      column-span: all;
+      margin: 20px 0;
+    }
+
+    #diagram-pipeline-architecture img {
+      max-width: 1400px;
+      width: 100%;
+    }
+
     .schematic-section {
       column-span: all;
       margin: 20px 0;
@@ -323,20 +334,20 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 40px 1in;
+        padding: 30px 0.6in;
         margin: 40px 0;
         border: 2px solid #0b3d91;
         border-radius: 8px;
         background: #f8f9fa;
-        gap: 40px;
+        gap: 30px;
       }
 
       .print-qr-section .qr-code {
-        flex: 0 0 200px;
-        width: 200px;
-        height: 200px;
+        flex: 0 0 180px;
+        width: 180px;
+        height: 180px;
         background: white;
-        padding: 10px;
+        padding: 8px;
         border: 1px solid #ddd;
         border-radius: 4px;
       }
@@ -349,6 +360,8 @@
 
       .print-qr-section .qr-details {
         flex: 1;
+        max-width: calc(100% - 220px);
+        padding-right: 0;
       }
 
       .print-qr-section .qr-details h3 {
@@ -375,6 +388,8 @@
         color: #0b3d91;
         margin-top: 16px;
         font-family: 'Source Sans 3', Arial, monospace;
+        word-break: break-all;
+        white-space: normal;
       }
 
       .print-qr-section .qr-footer {
@@ -740,5 +755,52 @@
     @media (max-width: 999px) {
       body.toc-open .container {
         transform: none;
+      }
+    }
+
+    /* Professional Footer */
+    .site-footer {
+      background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+      border-top: 1px solid var(--border);
+      padding: 40px 20px;
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 8.5in;
+      margin: 0 auto;
+    }
+
+    .footer-author {
+      font-size: 15px;
+      color: var(--text);
+      margin: 0 0 8px 0;
+      font-family: 'Source Sans 3', sans-serif;
+    }
+
+    .footer-author strong {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .footer-affiliation {
+      font-size: 13px;
+      color: var(--text-light);
+      margin: 0 0 12px 0;
+      font-family: 'Source Sans 3', sans-serif;
+    }
+
+    .footer-copyright {
+      font-size: 12px;
+      color: var(--text-light);
+      margin: 0;
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 400;
+    }
+
+    @media print {
+      .site-footer {
+        display: none;
       }
     }

@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <meta name="google-site-verification" content="mtFBoyc2JBmbAuiZSxWCWLl4LFWQ9aON4H31IEK4THI" />
-  
+
   <!-- Primary Meta Tags -->
   <title>IEEE-754 Floating Point Multiplier | Vedic Mathematics VLSI Design | Krishnarjun Mitra | Jadavpur University
   </title>
@@ -207,13 +207,13 @@
     <!-- Print-only QR Code Section -->
     <section class="print-qr-section">
       <div class="qr-code">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://finalyearproject.vercel.app"
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://juetce-finalyearproject.vercel.app"
           alt="QR Code to Project Website">
       </div>
       <div class="qr-details">
         <h3>Online Availability</h3>
         <p>The complete project documentation, is available at the following web address:</p>
-        <p class="site-url">https://finalyearproject.vercel.app</p>
+        <p class="site-url">https://juetce-finalyearproject.vercel.app</p>
         <p class="qr-footer">Scan the QR code or visit the URL to access the digital version of this research work.</p>
       </div>
     </section>
@@ -540,10 +540,10 @@
       <h4>Hierarchical Architecture</h4>
       <p>Our design applies this principle recursively to build the 24×24 multiplier.</p>
 
-      <div class="diagram" id="diagram-vedic-hierarchy">
+      <!-- <div class="diagram" id="diagram-vedic-hierarchy">
         <img src="assets/vedic_hierarchy.png" alt="Hierarchical structure of Vedic multiplier from 3x3 to 24x24"
           onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>[Vedic Multiplier Hierarchy Diagram - Image: assets/vedic_hierarchy.png]</div>'">
-      </div>
+      </div> -->
 
       <ol>
         <li><b>Base Case: 3×3 Multiplier (`vedic3x3`)</b><br>This is the fundamental block. It takes two 3-bit inputs
@@ -716,15 +716,61 @@
 
       <h3>13. Acknowledgment</h3>
       <p>We would like to express our sincere gratitude to our project supervisor, <b>Prof. P. Venkateshwaran</b>, for
-        his invaluable guidance, continuous support, and insightful feedback throughout this project. We also thank the
-        <b>Department of Electronics and Telecommunication Engineering</b> at <b>Jadavpur University</b> for providing
-        the necessary resources and academic environment to complete this work.
+        his invaluable guidance, continuous support, and insightful feedback throughout this project. His expertise in
+        digital design and VLSI systems proved instrumental in shaping the direction of this research and refining our
+        approach to the hierarchical multiplier architecture. His encouragement to explore unconventional methods, such
+        as the application of Vedic mathematics to modern hardware design, broadened our perspective and strengthened
+        the innovation in this work.</p>
+      <p>We extend our appreciation to the <b>Department of Electronics and Telecommunication Engineering</b> at
+        <b>Jadavpur University</b> for providing access to state-of-the-art laboratory facilities, software tools
+        including Xilinx Vivado Design Suite, and a conducive academic environment that enabled us to complete this
+        work. The department's emphasis on research-driven learning and hands-on experimentation was crucial to the
+        successful completion of this project.
       </p>
+      <p>We are also grateful to our peers and fellow researchers in the department for their constructive discussions,
+        suggestions, and collaborative spirit during the course of this project. Special thanks to the faculty members
+        who provided valuable insights during our interim presentations and helped us identify potential improvements in
+        our design methodology.</p>
+      <p>Finally, we acknowledge the contributions of the global research community whose published works in the field of
+        floating-point arithmetic, Vedic mathematics, and VLSI design served as the foundation for this study. The
+        open-access nature of academic literature and the spirit of knowledge sharing enabled us to build upon existing
+        research and contribute our findings to this evolving field.</p>
 
       <h3>14. Author Contributions</h3>
-      <p>Both authors contributed to discussions, planning, and manuscript review. Krishnarjun Mitra implemented the
-        complete pipelined design, Vedic multiplier, Verilog modules, simulation, and documentation. Souvik Das
-        contributed through literature study, conceptual discussions, and review of the manuscript.</p>
+      <p>This research represents a collaborative effort with distinct contributions from each author, while maintaining
+        shared responsibility for the overall project outcomes.</p>
+      <p><b>Krishnarjun Mitra</b> served as the principal architect and implementer of the floating-point multiplier
+        system. His responsibilities included:</p>
+      <ul>
+        <li>Complete design and implementation of the two-stage pipelined floating-point multiplier architecture in
+          Verilog HDL</li>
+        <li>Development of the hierarchical Vedic multiplier modules (3×3, 6×6, 12×12, and 24×24) based on the
+          Urdhva-Tiryagbhyam sutra</li>
+        <li>Design and coding of all special case handling logic for Zero, Infinity, NaN, overflow, and underflow
+          conditions</li>
+        <li>Creation of the comprehensive testbench environment and execution of functional verification simulations in
+          Vivado</li>
+        <li>Synthesis and timing analysis of the design, including RTL schematic generation and resource utilization
+          assessment</li>
+        <li>Preparation of all technical documentation, including this manuscript, diagrams, waveform analysis, and code
+          commentary</li>
+        <li>Development of the project website, integration of interactive elements, and establishment of online
+          accessibility</li>
+      </ul>
+      <p><b>Souvik Das</b> contributed significantly to the theoretical foundation and validation of the project through:
+      </p>
+      <ul>
+        <li>Comprehensive literature review and comparative analysis of existing floating-point multiplier architectures
+        </li>
+        <li>Theoretical study of Vedic mathematics principles and their applicability to digital circuit design</li>
+        <li>Conceptual discussions on architectural choices, pipeline depth optimization, and design trade-offs</li>
+        <li>Critical review and validation of simulation results against IEEE-754 standard specifications</li>
+        <li>Manuscript proofreading, formatting, and technical accuracy verification</li>
+        <li>Assistance in preparation of presentations and documentation of comparative performance metrics</li>
+      </ul>
+      <p>Both authors participated equally in project planning, weekly progress reviews, problem-solving discussions, and
+        the formulation of conclusions and future scope. All design decisions were made collaboratively, ensuring that
+        the final implementation reflects a unified vision and balanced approach to the research objectives.</p>
 
       <h3>15. References</h3>
       <p>[1] M. S. H. Hemant and N. Raghuwanshi, "VLSI design and analysis of IEEE 754 Floating Point Multiplier,"
@@ -741,6 +787,15 @@
 
     </div>
   </div>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p class="footer-author">Created and maintained by <strong>Krishnarjun Mitra</strong></p>
+      <p class="footer-affiliation">Department of Electronics and Telecommunication Engineering, Jadavpur University</p>
+      <p class="footer-copyright">&copy; 2025 Krishnarjun Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
   <div class="read-progress" role="progressbar" aria-label="Reading progress">
     <div class="read-progress__bar" id="readProgressBar"></div>
   </div>
