@@ -1,9 +1,3 @@
-/**
- * Diagram Management for Final Year Project Report
- * This module handles all diagram imports and provides them to the main report
- */
-
-// Diagram configuration array
 const diagrams = [
   {
     id: 'ieee754-format',
