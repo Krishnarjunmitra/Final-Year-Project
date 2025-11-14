@@ -173,6 +173,85 @@
       .main-content {
         column-count: 1;
       }
+
+      .container {
+        margin: 10px;
+        padding: 20px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, .08);
+      }
+
+      .title-page h1 {
+        font-size: 18pt;
+        line-height: 1.3;
+        margin-top: 30px;
+      }
+
+      .title-page h2 {
+        font-size: 13pt;
+      }
+
+      .title-page h3 {
+        font-size: 11pt;
+      }
+
+      .title-page .authors,
+      .title-page .supervisor {
+        font-size: 11pt;
+      }
+
+      .preface h2 {
+        font-size: 16pt;
+      }
+
+      .preface p,
+      .preface ul {
+        font-size: 9.5pt;
+        line-height: 1.5;
+      }
+
+      .main-content h3 {
+        font-size: 12pt;
+        margin: 12px 0 4px;
+      }
+
+      .main-content h4 {
+        font-size: 10.5pt;
+        margin: 8px 0 4px;
+      }
+
+      .main-content p,
+      .main-content ul {
+        font-size: 9.5pt;
+        line-height: 1.55;
+        margin: 0 0 8px;
+      }
+
+      .main-content ul {
+        padding-left: 16px;
+      }
+
+      .main-content ol {
+        padding-left: 16px;
+        font-size: 9.5pt;
+      }
+
+      .abstract h3,
+      .keywords h3 {
+        font-size: 11pt;
+      }
+
+      .abstract p {
+        font-size: 9pt;
+        line-height: 1.5;
+      }
+
+      .keywords p {
+        font-size: 8.5pt;
+      }
+
+      .formula {
+        font-size: 9pt;
+      }
     }
 
     .main-content h3 {
