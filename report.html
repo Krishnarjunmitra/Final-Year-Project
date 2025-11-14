@@ -335,6 +335,37 @@
       margin: 0 auto;
     }
 
+    /* Large schematic styling */
+    #diagram-rtl-schematic img {
+      max-width: 1400px;
+      width: 100%;
+    }
+
+    .schematic-section {
+      column-span: all;
+      margin: 20px 0;
+    }
+
+    .schematic-section h3 {
+      column-span: all;
+    }
+
+    @media print {
+      #diagram-rtl-schematic img {
+        max-width: 100%;
+        width: 100%;
+        page-break-inside: avoid;
+        transform: rotate(-90deg);
+        transform-origin: center center;
+        margin: 3in 0;
+      }
+
+      .schematic-section {
+        page-break-before: auto;
+        page-break-inside: avoid;
+      }
+    }
+
     .placeholder {
       display: block;
       width: 100%;
@@ -1232,21 +1263,23 @@
       <p>This modularity allows for each component of the Vedic multiplier to be tested and verified independently
         before being integrated into the main FPU datapath.</p>
 
-      <h3>8. Schematic Overview</h3>
-      <p>After the Verilog HDL code was synthesized using the Vivado Design Suite, a Register-Transfer Level (RTL)
-        schematic was generated. This schematic provides a visual representation of the hardware architecture.</p>
+      <div class="schematic-section">
+        <h3>8. Schematic Overview</h3>
+        <p>After the Verilog HDL code was synthesized using the Vivado Design Suite, a Register-Transfer Level (RTL)
+          schematic was generated. This schematic provides a visual representation of the hardware architecture.</p>
 
-      <div class="diagram" id="diagram-rtl-schematic">
-        <img src="assets/rtl_schematic.png" alt="Register Transfer Level schematic from Vivado synthesis" onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>[RTL Schematic Diagram - Image: assets/rtl_schematic.png]</div>'">
+        <div class="diagram" id="diagram-rtl-schematic">
+          <img src="assets/rtl_schematic.png" alt="Register Transfer Level schematic from Vivado synthesis" onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>[RTL Schematic Diagram - Image: assets/rtl_schematic.png]</div>'">
+        </div>
+
+        <p>The schematic clearly shows the two-stage pipelined architecture. The first stage (left) consists of the input
+          registers and the large block of combinational logic corresponding to the `vedic24x24` multiplier and the
+          exponent adder. A clear bank of flip-flops (the pipeline registers) separates the two stages. The second stage
+          (right) consists of the large multiplexer network that implements the priority logic for selecting NaN, Inf,
+          Zero, or the normalized result, along with the final output registers. The hierarchical nature of the
+          `vedic24x24` module is visible, with the schematic showing the nested `vedic12x12`, `vedic6x6`, and `vedic3x3`
+          blocks.</p>
       </div>
-
-      <p>The schematic clearly shows the two-stage pipelined architecture. The first stage (left) consists of the input
-        registers and the large block of combinational logic corresponding to the `vedic24x24` multiplier and the
-        exponent adder. A clear bank of flip-flops (the pipeline registers) separates the two stages. The second stage
-        (right) consists of the large multiplexer network that implements the priority logic for selecting NaN, Inf,
-        Zero, or the normalized result, along with the final output registers. The hierarchical nature of the
-        `vedic24x24` module is visible, with the schematic showing the nested `vedic12x12`, `vedic6x6`, and `vedic3x3`
-        blocks.</p>
 
       <h3>9. Simulation and Waveform Analysis</h3>
       <p>The design was functionally verified by simulating the `tb_fp_mul_pipelined` testbench in the Vivado simulator.

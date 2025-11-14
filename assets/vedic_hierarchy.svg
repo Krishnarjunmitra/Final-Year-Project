@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1000" height="800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .multiplier-box { fill: #e3f2fd; stroke: #0b3d91; stroke-width: 2; }
+      .base-multiplier { fill: #c5e1a5; stroke: #558b2f; stroke-width: 2; }
+      .text { font-family: Arial, sans-serif; font-size: 14px; fill: #1f2d3d; text-anchor: middle; }
+      .title { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #0b3d91; text-anchor: middle; }
+      .size-label { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #0b3d91; text-anchor: middle; }
+      .small-text { font-family: Arial, sans-serif; font-size: 12px; fill: #5b6b7c; text-anchor: middle; }
+      .connection { fill: none; stroke: #666; stroke-width: 1.5; }
+      .adder { fill: #fff9c4; stroke: #f57c00; stroke-width: 2; }
+    </style>
+  </defs>
+  
+  <!-- Title -->
+  <text x="500" y="35" class="title" font-size="22">Hierarchical Vedic Multiplier Architecture</text>
+  <text x="500" y="55" class="small-text">(Urdhva-Tiryagbhyam Sutra)</text>
+  
+  <!-- Level Labels -->
+  <text x="50" y="140" class="small-text" font-weight="bold">Level 0:</text>
+  <text x="50" y="330" class="small-text" font-weight="bold">Level 1:</text>
+  <text x="50" y="520" class="small-text" font-weight="bold">Level 2:</text>
+  <text x="50" y="710" class="small-text" font-weight="bold">Level 3:</text>
+  
+  <!-- ============== BASE LEVEL: 3×3 Multipliers ============== -->
+  
+  <!-- Top row of 3×3 multipliers (16 total, showing 8 per row) -->
+  
+  <!-- Row 1 -->
+  <rect x="120" y="100" width="80" height="60" class="base-multiplier" rx="4"/>
+  <text x="160" y="125" class="text" font-weight="bold">3×3</text>
+  <text x="160" y="145" class="small-text">vedic3x3</text>
+  
+  <rect x="220" y="100" width="80" height="60" class="base-multiplier" rx="4"/>
+  <text x="260" y="125" class="text" font-weight="bold">3×3</text>
+  
+  <rect x="320" y="100" width="80" height="60" class="base-multiplier" rx="4"/>
+  <text x="360" y="125" class="text" font-weight="bold">3×3</text>
+  
+  <rect x="420" y="100" width="80" height="60" class="base-multiplier" rx="4"/>
+  <text x="460" y="125" class="text" font-weight="bold">3×3</text>
+  
+  <rect x="520" y="100" width="80" height="60" class="base-multiplier" rx="4"/>
+  <text x="560" y="125" class="text" font-weight="bold">3×3</text>
+  
+  <rect x="620" y="100" width="80" height="60" class="base-multiplier" rx="4"/>
+  <text x="660" y="125" class="text" font-weight="bold">3×3</text>
+  
+  <rect x="720" y="100" width="80" height="60" class="base-multiplier" rx="4"/>
+  <text x="760" y="125" class="text" font-weight="bold">3×3</text>
+  
+  <rect x="820" y="100" width="80" height="60" class="base-multiplier" rx="4"/>
+  <text x="860" y="125" class="text" font-weight="bold">3×3</text>
+  
+  <!-- Row 2 -->
+  <rect x="120" y="180" width="80" height="60" class="base-multiplier" rx="4"/>
+  <text x="160" y="205" class="text" font-weight="bold">3×3</text>
+  
+  <rect x="220" y="180" width="80" height="60" class="base-multiplier" rx="4"/>
+  <text x="260" y="205" class="text" font-weight="bold">3×3</text>
+  
+  <rect x="320" y="180" width="80" height="60" class="base-multiplier" rx="4"/>
+  <text x="360" y="205" class="text" font-weight="bold">3×3</text>
+  
+  <rect x="420" y="180" width="80" height="60" class="base-multiplier" rx="4"/>
+  <text x="460" y="205" class="text" font-weight="bold">3×3</text>
+  
+  <rect x="520" y="180" width="80" height="60" class="base-multiplier" rx="4"/>
+  <text x="560" y="205" class="text" font-weight="bold">3×3</text>
+  
+  <rect x="620" y="180" width="80" height="60" class="base-multiplier" rx="4"/>
+  <text x="660" y="205" class="text" font-weight="bold">3×3</text>
+  
+  <rect x="720" y="180" width="80" height="60" class="base-multiplier" rx="4"/>
+  <text x="760" y="205" class="text" font-weight="bold">3×3</text>
+  
+  <rect x="820" y="180" width="80" height="60" class="base-multiplier" rx="4"/>
+  <text x="860" y="205" class="text" font-weight="bold">3×3</text>
+  
+  <!-- ============== LEVEL 1: 6×6 Multipliers ============== -->
+  
+  <!-- 6×6 block 1 -->
+  <rect x="140" y="280" width="180" height="80" class="multiplier-box" rx="4"/>
+  <text x="230" y="310" class="size-label">6×6</text>
+  <text x="230" y="330" class="small-text">vedic6x6</text>
+  <text x="230" y="345" class="small-text">(4 × 3×3)</text>
+  
+  <!-- 6×6 block 2 -->
+  <rect x="340" y="280" width="180" height="80" class="multiplier-box" rx="4"/>
+  <text x="430" y="310" class="size-label">6×6</text>
+  <text x="430" y="330" class="small-text">vedic6x6</text>
+  
+  <!-- 6×6 block 3 -->
+  <rect x="540" y="280" width="180" height="80" class="multiplier-box" rx="4"/>
+  <text x="630" y="310" class="size-label">6×6</text>
+  <text x="630" y="330" class="small-text">vedic6x6</text>
+  
+  <!-- 6×6 block 4 -->
+  <rect x="740" y="280" width="180" height="80" class="multiplier-box" rx="4"/>
+  <text x="830" y="310" class="size-label">6×6</text>
+  <text x="830" y="330" class="small-text">vedic6x6</text>
+  
+  <!-- Connections from 3×3 to 6×6 -->
+  <path d="M 160 160 L 190 280" class="connection"/>
+  <path d="M 260 160 L 230 280" class="connection"/>
+  <path d="M 160 240 L 190 280" class="connection"/>
+  <path d="M 260 240 L 230 280" class="connection"/>
+  
+  <path d="M 360 160 L 390 280" class="connection"/>
+  <path d="M 460 160 L 430 280" class="connection"/>
+  <path d="M 360 240 L 390 280" class="connection"/>
+  <path d="M 460 240 L 430 280" class="connection"/>
+  
+  <path d="M 560 160 L 590 280" class="connection"/>
+  <path d="M 660 160 L 630 280" class="connection"/>
+  <path d="M 560 240 L 590 280" class="connection"/>
+  <path d="M 660 240 L 630 280" class="connection"/>
+  
+  <path d="M 760 160 L 790 280" class="connection"/>
+  <path d="M 860 160 L 830 280" class="connection"/>
+  <path d="M 760 240 L 790 280" class="connection"/>
+  <path d="M 860 240 L 830 280" class="connection"/>
+  
+  <!-- ============== LEVEL 2: 12×12 Multipliers ============== -->
+  
+  <!-- 12×12 block 1 -->
+  <rect x="160" y="470" width="360" height="90" class="multiplier-box" rx="4"/>
+  <text x="340" y="500" class="size-label" font-size="18">12×12</text>
+  <text x="340" y="520" class="small-text">vedic12x12</text>
+  <text x="340" y="540" class="small-text">(4 × 6×6 = 16 × 3×3)</text>
+  
+  <!-- 12×12 block 2 -->
+  <rect x="560" y="470" width="360" height="90" class="multiplier-box" rx="4"/>
+  <text x="740" y="500" class="size-label" font-size="18">12×12</text>
+  <text x="740" y="520" class="small-text">vedic12x12</text>
+  <text x="740" y="540" class="small-text">(4 × 6×6 = 16 × 3×3)</text>
+  
+  <!-- Connections from 6×6 to 12×12 -->
+  <path d="M 230 360 L 280 470" class="connection"/>
+  <path d="M 430 360 L 340 470" class="connection"/>
+  
+  <path d="M 630 360 L 680 470" class="connection"/>
+  <path d="M 830 360 L 740 470" class="connection"/>
+  
+  <!-- ============== LEVEL 3: 24×24 Multiplier (TOP) ============== -->
+  
+  <!-- 24×24 final multiplier -->
+  <rect x="200" y="650" width="600" height="110" class="multiplier-box" rx="4" stroke-width="3"/>
+  <text x="500" y="690" class="size-label" font-size="20">24×24</text>
+  <text x="500" y="715" class="text" font-weight="bold">vedic24x24 (TOP MODULE)</text>
+  <text x="500" y="735" class="small-text">(4 × 12×12 = 16 × 6×6 = 64 × 3×3)</text>
+  <text x="500" y="752" class="small-text">48-bit output for mantissa multiplication</text>
+  
+  <!-- Connections from 12×12 to 24×24 -->
+  <path d="M 340 560 L 380 650" class="connection" stroke-width="2"/>
+  <path d="M 740 560 L 620 650" class="connection" stroke-width="2"/>
+  
+  <!-- Adder annotations -->
+  <rect x="140" y="390" width="60" height="30" class="adder" rx="3"/>
+  <text x="170" y="410" class="small-text">+</text>
+  
+  <rect x="540" y="390" width="60" height="30" class="adder" rx="3"/>
+  <text x="570" y="410" class="small-text">+</text>
+  
+  <rect x="340" y="580" width="80" height="30" class="adder" rx="3"/>
+  <text x="380" y="600" class="small-text">Adders</text>
+  
+  <!-- Recursion explanation box -->
+  <rect x="30" y="650" width="150" height="110" fill="#fff" stroke="#666" stroke-width="1" rx="4"/>
+  <text x="105" y="675" class="text" font-weight="bold" font-size="12">Recursion:</text>
+  <text x="105" y="695" class="small-text">3×3 → 6-bit</text>
+  <text x="105" y="710" class="small-text">6×6 → 12-bit</text>
+  <text x="105" y="725" class="small-text">12×12 → 24-bit</text>
+  <text x="105" y="740" class="small-text">24×24 → 48-bit</text>
+  
+</svg>

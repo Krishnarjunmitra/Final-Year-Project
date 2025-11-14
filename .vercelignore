@@ -1,0 +1,10 @@
+fp_mul/
+fp_mul_advanced/
+*.xpr
+*.lpr
+*.wdb
+*.pb
+*.prj
+*.tcl
+*.wcfg
+.git/

@@ -1,0 +1,14 @@
+Time resolution is 1 ps
+=== PIPELINED FP MULTIPLIER TESTBENCH START ===
+Case1_Normal: A=0x40600000  B=0xc0000000  => Y=0xc0e00000 (valid)  time=85000
+PASS: Case1_Normal => expected=0xc0e00000 got=0xc0e00000 (time=85000)
+Case2_1p5x2p0: A=0x3fc00000  B=0x40000000  => Y=0x40400000 (valid)  time=115000
+PASS: Case2_1p5x2p0 => expected=0x40400000 got=0x40400000 (time=115000)
+Case3_Zero: A=0x00000000  B=0x40a00000  => Y=0x00000000 (valid)  time=145000
+PASS: Case3_Zero => expected=0x00000000 got=0x00000000 (time=145000)
+Case4_InfTimes2: A=0x7f800000  B=0x40000000  => Y=0x7f800000 (valid)  time=175000
+PASS: Case4_InfTimes2 => expected=0x7f800000 got=0x7f800000 (time=175000)
+Case5_NaN: A=0x7fc00001  B=0x40000000  => Y=0x7fc00000 (valid)  time=205000
+PASS: Case5_NaN => expected=0x7fc00000 got=0x7fc00000 (time=205000)
+=== TESTBENCH FINISHED ===
+$finish called at time : 255 ns : File "C:/Users/krish/Documents/Jadavpur University/Final Year Project/fp_mul_advanced/fp_mul_advanced.srcs/sim_1/new/tb_fp_mul_pipelined.v" Line 114

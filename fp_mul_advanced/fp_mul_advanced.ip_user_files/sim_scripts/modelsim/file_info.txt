@@ -1,0 +1,7 @@
+fp_mul_pipelined.v,verilog,xil_defaultlib,../../../fp_mul_advanced.srcs/sources_1/new/fp_mul_pipelined.v,
+vedic12x12.v,verilog,xil_defaultlib,../../../fp_mul_advanced.srcs/sources_1/new/vedic12x12.v,
+vedic24x24.v,verilog,xil_defaultlib,../../../fp_mul_advanced.srcs/sources_1/new/vedic24x24.v,
+vedic3x3.v,verilog,xil_defaultlib,../../../fp_mul_advanced.srcs/sources_1/new/vedic3x3.v,
+vedic6x6.v,verilog,xil_defaultlib,../../../fp_mul_advanced.srcs/sources_1/new/vedic6x6.v,
+tb_fp_mul_pipelined.v,verilog,xil_defaultlib,../../../fp_mul_advanced.srcs/sim_1/new/tb_fp_mul_pipelined.v,
+glbl.v,Verilog,xil_defaultlib,glbl.v

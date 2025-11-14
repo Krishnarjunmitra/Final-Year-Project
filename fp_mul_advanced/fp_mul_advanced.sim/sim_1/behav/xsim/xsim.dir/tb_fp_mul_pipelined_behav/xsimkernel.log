@@ -2,3 +2,6 @@ Running: xsim.dir/tb_fp_mul_pipelined_behav/xsimk.exe -simmode gui -wdb tb_fp_mu
 Design successfully loaded
 Design Loading Memory Usage: 29592 KB (Peak: 29592 KB)
 Design Loading CPU Usage: 827 ms
+Simulation completed
+Simulation Memory Usage: 31148 KB (Peak: 31148 KB)
+Simulation CPU Usage: 1030 ms
