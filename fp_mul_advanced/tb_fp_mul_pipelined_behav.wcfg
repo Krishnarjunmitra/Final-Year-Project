@@ -11,13 +11,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="40.069 ns"></ZoomStartTime>
-      <ZoomEndTime time="201.870 ns"></ZoomEndTime>
-      <Cursor1Time time="245.000 ns"></Cursor1Time>
+      <ZoomStartTime time="68,872 ps"></ZoomStartTime>
+      <ZoomEndTime time="76,988 ps"></ZoomEndTime>
+      <Cursor1Time time="70,224 ps"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="125"></NameColumnWidth>
-      <ValueColumnWidth column_width="125"></ValueColumnWidth>
+      <ValueColumnWidth column_width="120"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="7" />
    <wvobject fp_name="/tb_fp_mul_pipelined/clk" type="logic">
@@ -35,10 +35,12 @@
    <wvobject fp_name="/tb_fp_mul_pipelined/a" type="array">
       <obj_property name="ElementShortName">a[31:0]</obj_property>
       <obj_property name="ObjectShortName">a[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/tb_fp_mul_pipelined/b" type="array">
       <obj_property name="ElementShortName">b[31:0]</obj_property>
       <obj_property name="ObjectShortName">b[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/tb_fp_mul_pipelined/y" type="array">
       <obj_property name="ElementShortName">y[31:0]</obj_property>
