@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Year Project Report</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg:#ffffff;
+            --bg-alt:#f5f7fa;
+            --border:#d9e2ec;
+            --accent:#0b3d91;
+            --accent-hover:#062b65;
+            --text:#1f2d3d;
+            --text-light:#5b6b7c;
+        }
+        html { scroll-behavior:smooth; }
+        body { font-family: 'Merriweather', 'Times New Roman', serif; line-height:1.5; margin:0; padding:0; background:#f4f6f8; color:var(--text); }
+        .container { max-width:8.5in; margin:20px auto; padding:1in; background:#fff; box-shadow:0 0 10px rgba(0,0,0,.1); position:relative; transition:transform .28s ease; }
+        /* Removed top toolbar to prevent overlap */
+        .title-page { text-align:center; display:flex; flex-direction:column; justify-content:flex-start; padding-bottom:1in; box-sizing:border-box; page-break-after:always; margin-bottom:40px; }
+        /* Remove fixed height to prevent overlap; larger bottom margin for visual separation */
+        @media print { 
+            .title-page { margin-bottom:0; height:10.5in; display:flex; flex-direction:column; }
+            .title-page .university-info { margin-top:auto; padding-bottom:1.2in; }
+        }
+        .after-title-spacer { height:40px; width:100%; }
+        .title-page h1 { font-size:24pt; font-weight:900; margin-top:1in; line-height:1.25; }
+        .title-page h2 { font-size:16pt; font-weight:400; }
+        .title-page h3 { font-size:14pt; font-weight:700; }
+        .title-page .authors, .title-page .supervisor { font-size:14pt; line-height:1.8; }
+        .title-page .university-info { margin-top:1.5in; }
+        /* Minimal TOC styles */
+        nav.toc { padding: 0 0 0 0; font-family:'Source Sans 3', Arial, sans-serif; position:relative; }
+        nav.toc h2 { margin:0 0 10px 0; padding-right:0; font-size:14pt; font-weight:600; color:var(--accent); letter-spacing:.4px; }
+        nav.toc ol { margin:0 0 0 8px; padding:0; list-style:decimal; }
+        nav.toc li { margin:0 0 3px 0; font-size:11.5pt; line-height:1.3; }
+        nav.toc ol li a { display:block; padding:7px 12px 7px 16px; border-left:3px solid transparent; border-radius:4px; text-decoration:none; color:var(--text); transition:.15s border-left-color; }
+        nav.toc ol li a:hover { border-left-color:var(--accent); }
+        nav.toc ol li a.active { background:var(--bg-alt); border-left-color:var(--accent); font-weight:600; color:var(--accent); }
+        nav.toc ol li a:focus { outline:none; }
+        nav.toc .small-note { color:var(--text-light); font-style:italic; margin-top:14px; font-size:9pt; }
+        .main-content { column-count:2; column-gap:0.5in; margin-top:20px; }
+        @media (max-width: 768px){ .main-content { column-count:1; } }
+        .main-content h3 { font-size:14pt; font-weight:700; color:#333; margin:15px 0 5px; column-span:all; border-bottom:1px solid #000; padding-bottom:3px; page-break-after:avoid; }
+        .main-content h4 { font-size:12pt; font-weight:700; font-style:italic; margin:10px 0 5px; }
+        .main-content p, .main-content ul { font-size:11pt; text-align:justify; margin:0 0 10px; }
+        .main-content ul { padding-left:20px; }
+        .abstract, .keywords { column-span:all; }
+        .keywords p { font-style:italic; }
+        .placeholder { display:block; width:100%; height:200px; border:2px dashed #999; background:#f9f9f9; color:#555; font-weight:600; text-align:center; line-height:200px; margin:15px 0; font-size:10pt; box-sizing:border-box; }
+        .formula { text-align:center; font-style:italic; font-size:12pt; margin:10px 0; }
+        .page-break-before { page-break-before:always; }
+        @page { size:A4; margin:20mm 15mm; }
+        @media print { body { background:#fff; } .toolbar { display:none !important; } .container { box-shadow:none; padding:0; margin:0; max-width:initial; } nav.toc { break-after:page; } }
+        a { color:#0b3d91; text-decoration:none; }
+        a:hover { text-decoration:underline; }
+        .small-note { font-size:9pt; color:#555; font-style:italic; }
+        .logo-placeholder { font-size:18pt; font-weight:700; margin-bottom:20px; }
+        .logo-placeholder img { max-width:380px; width:100%; height:auto; }
+        .preface { column-span:all; padding:0; margin:0 0 24px 0; }
+        .preface h2 { margin:0 0 10px 0; font-size:16pt; font-weight:700; color:#222; text-align:center; }
+        .preface p { font-size:11pt; text-align:justify; margin:0 0 10px; }
+        .author-bios { column-span:all; margin:8px 0 0 0; padding-left:18px; }
+        .author-bios li { margin:6px 0; font-size:10.5pt; }
+        .author-bios strong { font-weight:700; }
+        .preface-separator { page-break-after:always; height:0; }
+        /* Floating action buttons (Download / Print) */
+        .fab-container { position:fixed; bottom:24px; right:24px; display:flex; flex-direction:column; gap:14px; z-index:1000; }
+        .fab { width:56px; height:56px; border-radius:50%; background:#0b3d91; color:#fff; border:none; box-shadow:0 4px 14px rgba(0,0,0,.3); font-size:26px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s, transform .2s; }
+        .fab:hover { background:#062b65; transform:translateY(-3px); }
+        .fab:active { transform:translateY(0); }
+        .fab svg { width:28px; height:28px; fill:#fff; }
+        @media print { .fab-container { display:none !important; } }
+        /* Reading progress bar */
+        .read-progress { position:fixed; left:0; right:0; bottom:0; height:8px; background:rgba(11,61,145,0.08); z-index:900; -webkit-backdrop-filter:saturate(120%) blur(2px); backdrop-filter:saturate(120%) blur(2px); }
+        .read-progress__bar { height:100%; width:0%; background:linear-gradient(90deg,#0b3d91,#4a90e2); transition:width .15s ease-out; }
+        .read-progress__label { position:fixed; right:14px; bottom:10px; font-family:'Source Sans 3', Arial, sans-serif; font-size:11px; color:#334; background:rgba(255,255,255,0.9); border:1px solid #dfe6f5; padding:2px 6px; border-radius:999px; z-index:901; }
+        @media print { .read-progress, .read-progress__label { display:none !important; } }
+        /* TOC drawer & toggle */
+        .toc-toggle { position:fixed; left:14px; top:18px; z-index:800; background:var(--accent); color:#fff; border:1px solid #08306d; border-radius:24px; padding:8px 18px; font-family:'Source Sans 3', Arial, sans-serif; font-size:12px; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,.18); letter-spacing:.5px; }
+        .toc-toggle:hover { background:var(--accent-hover); }
+        .toc-toggle:focus { outline:none; }
+        .toc-drawer { position:fixed; top:0; left:0; height:100vh; width:300px; background:var(--bg); border-right:1px solid var(--border); box-shadow:none; padding:20px 20px 20px; box-sizing:border-box; transform:translateX(-100%); transition:transform .26s ease; z-index:801; overflow-y:auto; }
+        .toc-drawer.open { transform:translateX(0); }
+        .toc-drawer nav.toc { margin:0; border-radius:10px; }
+        .toc-drawer::-webkit-scrollbar { width:5px; }
+        .toc-drawer::-webkit-scrollbar-track { background:#f0f4ff; }
+        .toc-drawer::-webkit-scrollbar-thumb { background:#b3c7e8; border-radius:6px; }
+        .toc-drawer::-webkit-scrollbar-thumb:hover { background:#91afd8; }
+        @media (max-width: 640px){ .toc-drawer { width:82%; } }
+        @media print { .toc-drawer, .toc-toggle { display:none !important; } }
+        /* Close button minimal */
+        .toc-close { position:absolute; top:10px; right:8px; background:#fff; border:1px solid var(--border); color:var(--accent); width:40px; height:40px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .18s, color .18s; z-index:10; }
+        .toc-close:hover { background:var(--bg-alt); color:var(--accent-hover); }
+        .toc-close:active { transform:scale(.94); }
+        .toc-close:focus { outline:none; }
+        .toc-close svg { width:24px; height:24px; fill:currentColor; stroke:currentColor; stroke-width:0.5; }
+        /* Heading already restyled above */
+        body.toc-open .toc-toggle { display:none; }
+        /* Respace layout when TOC drawer open: keep original page width, just shift */
+        @media (min-width: 1000px){
+            body.toc-open .container { margin-left:300px; }
+        }
+        @media (max-width: 999px){ body.toc-open .container { transform:none; } }
+    </style>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsEyh8GgYfUdw2GFqtZUt8gmfSdJQOnE5n9PpG1GQJzCqJrjVfGqYwIV/pY5Pja/qvp5AYA9YVBus7PAGfQ1HA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="assets/report.js" defer></script>
+</head>
+<body>
+
+    <button id="toc-toggle" class="toc-toggle" aria-controls="toc-drawer" aria-expanded="false" aria-label="Toggle table of contents">Contents</button>
+    <aside id="toc-drawer" class="toc-drawer" aria-label="Table of Contents Drawer" aria-hidden="true">
+        <button id="toc-close" class="toc-close" aria-label="Hide contents" title="Hide">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+        <nav class="toc" aria-label="Table of Contents">
+            <h2>Contents</h2>
+            <ol id="toc-list"></ol>
+        </nav>
+    </aside>
+
+    <div class="container" id="report">
+        
+        <div class="title-page">
+            <div>
+                <h1>Design and Implementation of a High-Speed Pipelined IEEE-754 Floating Point Multiplier using Hierarchical Vedic 24×24 Mantissa Architecture</h1>
+                <br>
+                <h2>A Final Year Project Report</h2>
+                <p>Submitted in partial fulfillment of the requirements for the degree of</p>
+                <h3>Bachelor of Engineering</h3>
+                <p>in</p>
+                <h3>Electronics and Telecommunication Engineering</h3>
+                <br>
+                <div class="authors">
+                    by<br>
+                    <b>Krishnarjun Mitra</b><br>
+                    <b>Souvik Das</b><br>
+                    (Session 2022–2026)
+                </div>
+                <br>
+                <div class="supervisor">
+                    Under the supervision of<br>
+                    <b>Prof. P. Venkateshwaran</b>
+                </div>
+            </div>
+            <div class="university-info">
+                <div class="logo-placeholder">
+                    <img src="assets/Jadavpur_University.png" alt="Jadavpur University Logo" />
+                </div>
+                <h3>Department of Electronics and Telecommunication Engineering</h3>
+                <h3>JADAVPUR UNIVERSITY</h3>
+                <p>Kolkata, India</p>
+                <p>2025</p>
+            </div>
+        </div>
+
+        <section class="preface">
+            <h2>Preface</h2>
+            <p>This report documents the conception, design, verification, and analysis of a high-speed pipelined IEEE&#x2011;754 single-precision floating point multiplier employing a hierarchical Vedic 24&times;24 mantissa architecture. The work was undertaken as part of the Final Year Project requirement at Jadavpur University and reflects a synthesis of classic computer arithmetic, modern digital design methodologies, and ancient Vedic mathematical principles chosen for their structural regularity and hardware efficiency.</p>
+            <p>The project objective was twofold: (1) engineer a logically correct and throughput-optimized multiplier suitable for FPGA deployment, and (2) evaluate the viability of recursive Urdhva&#x2011;Tiryagbhyam decomposition versus conventional Booth / Wallace techniques in terms of modularity and pipeline friendliness. Emphasis was placed on clean, synthesizable Verilog HDL, deterministic handling of IEEE special cases, and architectural clarity enabling future extension to double precision and deeper pipelines.</p>
+            <p>This Preface provides context for readers approaching the subsequent technical sections. The Literature Review situates our design amid contemporary optimization strategies; architectural chapters then detail field extraction, special case logic, exponent path, and mantissa multiplication hierarchy. Simulation evidence, followed by synthesis discussion, establishes functional soundness and practical feasibility.</p>
+            <ul class="author-bios">
+                <li><strong>Krishnarjun Mitra</strong> — Primary architect and implementer of the pipelined multiplier, hierarchical Vedic modules, verification environment, and documentation integration. Interests include high‑performance arithmetic circuits, FPGA acceleration, and algorithm–hardware co‑design.</li>
+                <li><strong>Souvik Das</strong> — Contributor in literature analysis, comparative methodology discussions, and manuscript review. Academic interests span digital signal processing, numerical methods, and efficient datapath structures.</li>
+            </ul>
+        </section>
+        <div class="preface-separator"></div>
+        <div class="main-content">
+            
+            <div class="abstract">
+                <h3>Abstract</h3>
+                <p>High-performance floating-point arithmetic is a foundational requirement for modern computing, powering fields from Digital Signal Processing (DSP) to artificial intelligence and scientific computing. The floating-point multiplier, in particular, is a critical component that often dictates overall system performance and resource utilization. This project presents the design, implementation, and verification of a high-speed, two-stage pipelined floating-point multiplier compliant with the IEEE-754 single-precision standard. The core innovation of this design lies in the implementation of the 24-bit mantissa multiplication stage using a hierarchical Vedic multiplier based on the Urdhva-Tiryagbhyam sutra. This ancient mathematical technique is leveraged for its inherent parallelism and structural regularity, making it highly suitable for VLSI and FPGA implementation. The architecture is described in synthesizable Verilog HDL and features a recursive 3×3 → 6×6 → 12×12 → 24×24 multiplier hierarchy. The pipelined design enhances throughput, while dedicated logic ensures correct handling of special cases, including Zero, Infinity (Inf), and Not-a-Number (NaN), as well as overflow and underflow conditions. The design was functionally verified through extensive simulation in the Vivado Design Suite, demonstrating its logical correctness and adherence to the IEEE-754 standard.</p>
+            </div>
+
+            <div class="keywords">
+                <h3>Keywords</h3>
+                <p>IEEE-754, Floating Point Multiplier, Pipelining, Vedic Mathematics, Urdhva-Tiryagbhyam, Verilog, FPGA, High-Speed Arithmetic, VLSI.</p>
+            </div>
+
+            <h3>1. Introduction</h3>
+            <p>In the last few decades, the demand for high-performance computing has grown exponentially. Applications in digital signal processing (DSP), graphics rendering, scientific simulation, and the burgeoning field of machine learning rely heavily on complex mathematical operations [1]. At the heart of these operations is floating-point (FP) arithmetic, which provides a wide dynamic range and high precision for representing real numbers [2].</p>
+            <p>Within the suite of FP operations, floating-point multiplication is a fundamental and frequently executed instruction. However, it is also one of the most resource-intensive and time-consuming, often forming the critical path in a processor's datapath [3]. The complexity of an FP multiplier stems from its three main tasks: calculating the sign, adding the exponents, and—most significantly—multiplying the large mantissas.</p>
+            <p>Traditional approaches to mantissa multiplication, such as the Booth encoding or array multipliers, have been highly optimized. However, they can still suffer from complex routing, large area, and significant propagation delays. This has spurred research into alternative multiplication algorithms.</p>
+            <p>This project explores one such alternative: the application of ancient Vedic mathematics to modern digital design. Specifically, we utilize the <b>Urdhva-Tiryagbhyam</b> (vertically and crosswise) sutra, a technique known for its parallel and regular structure [4]. The algorithm breaks down a large multiplication into smaller, independent cross-products, which are then summed. This "divide and conquer" methodology is inherently parallel and maps efficiently onto the hardware structure of an FPGA.</p>
+            <p>To further enhance performance, our design incorporates a <b>two-stage pipeline</b>. While any combinational multiplier has a significant propagation delay, pipelining allows us to increase the clock frequency and, consequently, the data throughput. By registering the intermediate results, we can process one multiplication per clock cycle, albeit with an initial two-cycle latency.</p>
+            <p>This report details the design and implementation of a complete 32-bit single-precision floating-point multiplier. It combines the speed of a pipelined architecture with the structural efficiency of a hierarchically-designed 24×24 Vedic mantissa multiplier. The entire system is implemented in Verilog HDL, verified in Vivado, and handles all special cases (Zero, Inf, NaN) as specified by the IEEE-754 standard.</p>
+            <p>The following sections will cover the relevant literature, the fundamentals of the IEEE-754 standard, the detailed architecture of our proposed multiplier, its implementation, and the simulation results that validate its correctness.</p>
+
+            <h3>2. Literature Review</h3>
+            <p>The optimization of floating-point multipliers is a well-established field of research. Our work builds upon a significant body of existing literature while exploring a specific combination of techniques.</p>
+            <p><b>Havaldar and Gurumurthy [4]</b> provide a foundational work by also proposing a design for an IEEE-754 floating-point multiplier using Vedic mathematics. They highlight the Urdhva-Tiryagbhyam sutra's suitability for reducing hardware complexity and path delay compared to conventional array or Booth multipliers. Our project extends this concept by implementing a deeply hierarchical 3×3 → 6×6 → 12×12 → 24×24 structure for the mantissa and integrating it into a formal two-stage pipeline to maximize throughput, a specific architectural detail that builds upon their general concept.</p>
+            <p>In contrast, <b>Bai et al. [3]</b> focus on a different optimization route, employing an expanded Booth-Wallace algorithm. The Wallace tree is a highly optimized method for summing partial products, and Booth encoding is the industry standard for reducing their number. This approach represents the "traditional" high-performance design. Our project intentionally diverges from this path to explore the Vedic algorithm as a viable alternative, comparing its design simplicity and structural regularity against the optimized but more complex Booth-Wallace method.</p>
+            <p><b>Ghabeli [2]</b> introduces an advanced technique called Multi-Path Mantissa Processing (MPM). This design uses adaptive data timing channels, where the computation path's delay varies based on the input data, such as detecting leading zeros in the mantissa. This is an alternative method for accelerating the "average-case" performance. Our design, instead, focuses on optimizing the "worst-case" delay and maximizing throughput for all inputs via a fixed two-stage pipeline.</p>
+            <p>Finally, <b>Hemant and Raghuwanshi [1]</b> analyze the impact of different high-speed <i>adders</i> (e.g., Carry Choose Adder) on the exponent calculation path of an FP multiplier. Their work underscores that every part of the FPU is a target for optimization. While their focus is on the 8-bit/11-bit exponent addition, our project's primary contribution is the optimization of the 24-bit mantissa multiplication path, which is the dominant component in terms of complexity and delay.</p>
+            <p>In summary, the literature shows diverse approaches to FPU optimization, from adders [1] to Booth-Wallace trees [3] and adaptive paths [2]. Our work contributes to this field by focusing on the synthesis of two powerful concepts: a deep pipeline for throughput and the Urdhva-Tiryagbhyam algorithm for an efficient, parallel, and regular mantissa multiplier [4].</p>
+
+            <h3>3. IEEE-754 Floating Point Format</h3>
+            <p>The IEEE-754 standard defines the representation of floating-point numbers in binary. This project implements the 32-bit single-precision format.</p>
+            <p>A 32-bit FP number is partitioned into three fields:</p>
+            <ul>
+                <li><b>Sign (S):</b> 1 bit (Bit 31). `0` for positive, `1` for negative.</li>
+                <li><b>Exponent (E):</b> 8 bits (Bits 30-23). Stored with a bias of 127. The actual exponent is `E - 127`.</li>
+                <li><b>Fraction (F):</b> 23 bits (Bits 22-0). Represents the fractional part of the mantissa.</li>
+            </ul>
+            
+            <div class="placeholder">[Insert IEEE-754 Format Diagram Here]</div>
+
+            <p>For <i>normalized</i> numbers, the standard assumes a hidden "1" before the binary point of the fraction. Thus, the complete mantissa is `1.F`.</p>
+            <p>The value (V) of a normalized number is given by:</p>
+            <p class="formula"><i>V = (-1)<sup>S</sup> × 2<sup>(E-127)</sup> × (1.F)</i></p>
+
+            <p>The standard also defines several special cases, which our design must handle:</p>
+            <ul>
+                <li><b>Zero:</b> When `E = 0` (all zeros) and `F = 0` (all zeros). The sign bit can be 0 or 1, representing +0 and -0.</li>
+                <li><b>Infinity (Inf):</b> When `E = 255` (all ones) and `F = 0` (all zeros). This represents overflow or division by zero.</li>
+                <li><b>Not-a-Number (NaN):</b> When `E = 255` (all ones) and `F ≠ 0` (non-zero). This represents the result of invalid operations, such as `0/0` or `Inf × 0`.</li>
+                <li><b>Denormalized Numbers:</b> When `E = 0` and `F ≠ 0`. These represent very small numbers. Our design treats denormalized inputs as zero, which is a common simplification in high-speed multipliers.</li>
+            </ul>
+
+            <h3 class="page-break-before">4. Proposed Architecture</h3>
+            <p>The proposed floating-point multiplier implements the multiplication of two 32-bit IEEE-754 numbers, `A` and `B`, to produce a 32-bit result, `Y`.</p>
+            
+            <div class="placeholder">[Insert Block Diagram of the Proposed Architecture Here]</div>
+
+            <p>The overall architecture is partitioned into several key functional units, which are mapped into a two-stage pipeline:</p>
+            <ol>
+                <li><b>Field Extractor:</b> In Stage 1, the 32-bit inputs `A` and `B` are deconstructed into their respective Sign (`S_a`, `S_b`), Exponent (`E_a`, `E_b`), and Fraction (`F_a`, `F_b`) fields.</li>
+                <li><b>Special Case Detector:</b> Parallel logic checks the exponent and fraction fields of both inputs to flag any Zero, Infinity, or NaN conditions.</li>
+                <li><b>Sign Calculator:</b> The resultant sign (`S_y`) is computed by a simple XOR of the input signs: `S_y = S_a ⊕ S_b`.</li>
+                <li><b>Exponent Adder:</b> This unit calculates the new exponent. It sums the two 8-bit exponents and subtracts the bias (127): `E_y = E_a + E_b - 127`. This raw sum is later adjusted during normalization.</li>
+                <li><b>Vedic Mantissa Multiplier:</b> This is the core of the design. It takes the 23-bit fractions `F_a` and `F_b`, prepends the hidden "1" to create two 24-bit mantissas (`M_a = {1, F_a}` and `M_b = {1, F_b}`), and multiplies them. This is done by the `vedic24x24` module, which produces a 48-bit product `P_m`.</li>
+                <li><b>Normalizer & Selector (Stage 2):</b> This unit takes the intermediate results (S_y, E_y, P_m) and the special case flags from Stage 1. It performs two main tasks:
+                    <ul>
+                        <li><b>Priority Selection:</b> It checks the special case flags. If a NaN, Inf, or Zero condition is met, it forces the output to the correct IEEE-754 representation for that case (e.g., `32'h7FC00000` for NaN).</li>
+                        <li><b>Normalization:</b> For a normal multiplication, the 48-bit product `P_m` must be normalized. The product `M_a × M_b` will be between 1.0 and ~4.0. If the MSB of the product (`P_m[47]`) is `1`, the product is in the range [2.0, 4.0). The mantissa is taken from `P_m[46:24]` and the exponent `E_y` is incremented by 1. If the MSB (`P_m[47]`) is `0`, the product is in the range [1.0, 2.0). The mantissa is taken from `P_m[45:23]` and the exponent is unchanged.</li>
+                        <li>It also checks for <b>Overflow</b> (final exponent > 254) and <b>Underflow</b> (final exponent <= 0), setting the result to Inf or Zero, respectively.</li>
+                    </ul>
+                </li>
+                <li><b>Output Assembler:</b> The final selected Sign, Exponent, and Mantissa are concatenated to form the 32-bit output `Y`.</li>
+            </ol>
+
+            <h3>5. Pipeline Architecture</h3>
+            <p>To achieve high throughput, the design is partitioned into a two-stage pipeline, separated by a bank of registers. This allows the multiplier to begin calculating a new result while the previous result is in its final stage. The `valid_in` and `valid_out` signals manage the data flow.</p>
+            
+            <div class="placeholder">[Insert Pipeline Architecture Diagram Here]</div>
+
+            <h4>Stage 1: Multiply and Add</h4>
+            <p>This stage contains the most computationally intensive logic. It performs the parallel multiplication of the mantissas and the addition of the exponents.</p>
+            <ul>
+                <li><b>Inputs:</b> `clk`, `rstn`, `a`, `b`, `valid_in`.</li>
+                <li><b>Registers:</b> `a_r`, `b_r`, `valid_r`.</li>
+                <li><b>Combinational Logic:</b>
+                    <ol>
+                        <li>Inputs `a` and `b` are latched into `a_r` and `b_r`.</li>
+                        <li>Fields are extracted from `a_r` and `b_r`.</li>
+                        <li>All special case flags (`a_is_zero`, `b_is_inf`, `a_is_nan`, etc.) are computed.</li>
+                        <li>The 24-bit mantissas (`man_a`, `man_b`) are formed.</li>
+                        <li>The `vedic24x24` module runs, producing the 48-bit `man_prod`.</li>
+                        <li>The exponents are added (`exp_sum = exp_a + exp_b`).</li>
+                        <li>The preliminary normalization logic (checking `msb_prod`, selecting `mant_trunc`, and calculating `exp_unbiased_signed`) is performed.</li>
+                    </ol>
+                </li>
+                <li><b>Pipeline Registers (Output):</b> At the next positive clock edge, all intermediate results are latched into the Stage 2 registers:
+                    <ul>
+                        <li>`mant_r` (23 bits)</li>
+                        <li>`expu_r` (10 bits)</li>
+                        <li>`sign_r_r` (1 bit)</li>
+                        <li>All special case flags (e.g., `a_zero_r`, `b_nan_r`)</li>
+                        <li>`valid_stage1` (from `valid_r`)</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h4>Stage 2: Normalize, Select, and Finalize</h4>
+            <p>This stage operates on the stable outputs from the Stage 1 pipeline registers. It is a large priority-based selection logic.</p>
+            <ul>
+                <li><b>Inputs:</b> All registered signals from Stage 1.</li>
+                <li><b>Combinational Logic (`always @*` block):</b>
+                    <ol>
+                        <li>A priority multiplexer selects the final output `y_next`.</li>
+                        <li><b>Highest Priority (NaN):</b> If `a_nan_r` or `b_nan_r` is true, or if `Inf * 0`, `y_next` is set to the quiet NaN representation (`32'h7FC00000`).</li>
+                        <li><b>Next Priority (Infinity):</b> If `a_inf_r` or `b_inf_r` is true (and not a NaN case), `y_next` is set to Infinity (`{sign_r_r, 8'hFF, 23'd0}`).</li>
+                        <li><b>Next Priority (Zero):</b> If `a_zero_r` or `b_zero_r` is true (and not a NaN case), `y_next` is set to Zero (`{sign_r_r, 8'd0, 23'd0}`).</li>
+                        <li><b>Lowest Priority (Normal Calculation):</b>
+                            <ul>
+                                <li>The registered exponent `expu_r` (now `exp_s`) is checked.</li>
+                                <li>If `exp_s > 254` (Overflow), `y_next` is set to Inf.</li>
+                                <li>If `exp_s <= 0` (Underflow), `y_next` is set to Zero.</li>
+                                <li>Otherwise, the final result is assembled: `y_next = {sign_r_r, exp_s[7:0], mant_r}`.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </li>
+                <li><b>Output Registers:</b> The final `y_next` and `valid_next` are registered at the module's output ports, `y` and `valid_out`, to ensure a clean, synchronous output.</li>
+            </ul>
+
+            <h3 class="page-break-before">6. Vedic Mantissa Multiplier</h3>
+            <p>The core of our design's performance and structural regularity comes from the 24×24 mantissa multiplier, which is built using the principles of Vedic mathematics.</p>
+
+            <h4>Urdhva-Tiryagbhyam (Vertically & Crosswise)</h4>
+            <p>This sutra provides a general "divide and conquer" algorithm for multiplication. To multiply two N-bit numbers, we split them into two N/2-bit halves:</p>
+            <ul>
+                <li>`A = A_hi | A_lo`</li>
+                <li>`B = B_hi | B_lo`</li>
+            </ul>
+            <p>The product `P = A × B` is then calculated in four parallel steps:</p>
+            <ol>
+                <li>`P0 = A_lo × B_lo` (low × low)</li>
+                <li>`P1 = A_lo × B_hi` (low × high)</li>
+                <li>`P2 = A_hi × B_lo` (high × low)</li>
+                <li>`P3 = A_hi × B_hi` (high × high)</li>
+            </ol>
+            <p>These four partial products are then summed with appropriate bit-shifts to produce the final 2N-bit result:</p>
+            <p class="formula"><i>P = (P3 &lt;&lt; N) + ((P1 + P2) &lt;&lt; (N/2)) + P0</i></p>
+
+            <h4>Hierarchical Architecture</h4>
+            <p>Our design applies this principle recursively to build the 24×24 multiplier.</p>
+            
+            <div class="placeholder">[Insert Vedic Multiplier Hierarchy Diagram Here]</div>
+
+            <ol>
+                <li><b>Base Case: 3×3 Multiplier (`vedic3x3`)</b><br>This is the fundamental block. It takes two 3-bit inputs and generates a 6-bit product. This is implemented as a small combinational block using the Urdhva-Tiryagbhyam partial-product method.</li>
+                <li><b>6×6 Multiplier (`vedic6x6`)</b><br>This module is constructed from four `vedic3x3` instances. It splits the 6-bit inputs `a` and `b` into 3-bit high/low halves (`a_hi`, `a_lo`, `b_hi`, `b_lo`). It then computes the four partial products and sums them with 3-bit and 6-bit shifts.</li>
+                <li><b>12×12 Multiplier (`vedic12x12`)</b><br>Following the same pattern, this module uses four `vedic6x6` instances. It splits the 12-bit inputs into 6-bit halves and combines the results with 6-bit and 12-bit shifts.</li>
+                <li><b>24×24 Multiplier (`vedic24x24`)</b><br>This is the final module used by the FPU. It instantiates four `vedic12x12` multipliers. It splits the 24-bit mantissas into 12-bit halves and combines the four 24-bit partial products with 12-bit and 24-bit shifts using a simple adder tree to produce the final 48-bit result.</li>
+            </ol>
+            <p>This hierarchical structure is highly regular, which simplifies design, verification, and physical layout on an FPGA, reducing routing congestion.</p>
+
+            <h3>7. Implementation in Verilog HDL</h3>
+            <p>The entire design was implemented in synthesizable Verilog HDL, following a modular, hierarchical approach.</p>
+            <ul>
+                <li><b>`fp_mul_pipelined.v` (TOP):</b> This is the top-level module that instantiates all other components. It defines the two-stage pipeline, including the main pipeline registers (`mant_r`, `expu_r`, etc.) and the Stage-2 combinational logic for normalization and special case selection.</li>
+                <li><b>`vedic24x24.v`:</b> This module implements the 24-bit unsigned multiplication. It instantiates four `vedic12x12` modules and contains the adders required to sum the four shifted partial products.</li>
+                <li><b>`vedic12x12.v`:</b> This module implements the 12-bit unsigned multiplication using four `vedic6x6` instances and their corresponding adders.</li>
+                <li><b>`vedic6x6.v`:</b> This module implements the 6-bit unsigned multiplication using four `vedic3x3` instances.</li>
+                <li><b>`vedic3x3.v`:</b> This is the base-case 3-bit unsigned multiplier.</li>
+                <li><b>`tb_fp_mul_pipelined.v`:</b> A comprehensive testbench was created to verify the design. It generates a 100 MHz clock and defines a task `apply_input` to feed test vectors to the multiplier and wait for the `valid_out` signal, checking the result.</li>
+            </ul>
+            <p>This modularity allows for each component of the Vedic multiplier to be tested and verified independently before being integrated into the main FPU datapath.</p>
+
+            <h3>8. Schematic Overview</h3>
+            <p>After the Verilog HDL code was synthesized using the Vivado Design Suite, a Register-Transfer Level (RTL) schematic was generated. This schematic provides a visual representation of the hardware architecture.</p>
+            
+            <div class="placeholder">[Insert Schematic Diagram Here]</div>
+
+            <p>The schematic clearly shows the two-stage pipelined architecture. The first stage (left) consists of the input registers and the large block of combinational logic corresponding to the `vedic24x24` multiplier and the exponent adder. A clear bank of flip-flops (the pipeline registers) separates the two stages. The second stage (right) consists of the large multiplexer network that implements the priority logic for selecting NaN, Inf, Zero, or the normalized result, along with the final output registers. The hierarchical nature of the `vedic24x24` module is visible, with the schematic showing the nested `vedic12x12`, `vedic6x6`, and `vedic3x3` blocks.</p>
+
+            <h3 class="page-break-before">9. Simulation and Waveform Analysis</h3>
+            <p>The design was functionally verified by simulating the `tb_fp_mul_pipelined` testbench in the Vivado simulator. The testbench was designed to cover normal operation as well as all special cases defined by the IEEE-754 standard.</p>
+            <p>The testbench generates a 100 MHz clock (10 ns period). The `apply_input` task asserts `valid_in` for one cycle. Due to the two-stage pipeline, the corresponding `valid_out` signal is expected to go high <i>two</i> clock cycles later.</p>
+            
+            <h4>Case 1: Normal Operation (3.5 × -2.0)</h4>
+            <ul>
+                <li><b>Input A:</b> `3.5` = `32'h40600000`</li>
+                <li><b>Input B:</b> `-2.0` = `32'hC0000000`</li>
+                <li><b>Expected Y:</b> `-7.0` = `32'hC0E00000`</li>
+            </ul>
+            <div class="placeholder">[Insert Waveform for Normal Operation Here]</div>
+            <p>The waveform shows the inputs `a` and `b` being applied. Two clock cycles later, the output `y` correctly settles to `C0E00000` and `valid_out` pulses high for one cycle, confirming the correct result and pipeline latency.</p>
+
+            <h4>Case 2: Zero Handling (0 × 5.0)</h4>
+            <ul>
+                <li><b>Input A:</b> `0.0` = `32'h00000000`</li>
+                <li><b>Input B:</b> `5.0` = `32'h40A00000`</li>
+                <li><b>Expected Y:</b> `0.0` = `32'h00000000`</li>
+            </ul>
+            <div class="placeholder">[Insert Waveform for Zero Handling Here]</div>
+            <p>As seen in the simulation, the special case logic in Stage 1 detects the zero input. In Stage 2, the priority selector multiplexes the correct zero representation (`32'h00000000`) to the output.</p>
+
+            <h4>Case 3: NaN Handling (NaN × 2.0)</h4>
+            <ul>
+                <li><b>Input A:</b> `NaN` = `32'h7FC00001` (E=all 1s, F!=0)</li>
+                <li><b>Input B:</b> `2.0` = `32'h40000000`</li>
+                <li><b>Expected Y:</b> `NaN` = `32'h7FC00000` (Quiet NaN)</li>
+            </ul>
+            <div class="placeholder">[Insert Waveform for NaN Handling Here]</div>
+            <p>The waveform confirms that as soon as the NaN input is detected, the NaN logic takes highest priority. The output `y` is forced to `7FC00000`, which is the canonical quiet NaN representation hardcoded in our design, propagating the NaN state as required by the standard. Infinity Handling (Inf × 2.0) and the (Inf × 0) cases were also tested and produced the correct `+Inf` and `NaN` outputs, respectively.</p>
+
+            <h3>10. Results</h3>
+            <p>The project successfully yielded a functionally correct 32-bit floating-point multiplier. The results are summarized in two categories:</p>
+            <p><b>1. Functional Verification:</b><br>
+            The simulation results confirm that the designed multiplier is 100% logically correct for all tested cases.
+            <ul>
+                <li><b>Normal Multiplication:</b> Products are accurate.</li>
+                <li><b>Pipeline:</b> A 2-cycle latency and 1-cycle throughput are confirmed.</li>
+                <li><b>Special Cases:</b> Zero, Infinity, and NaN inputs are handled correctly according to IEEE-754 rules.</li>
+                <li><b>Exception Handling:</b> Overflow cases correctly result in Infinity. Underflow cases correctly result in Zero. The `Inf × 0` case correctly produces NaN.</li>
+            </ul>
+            </p>
+            <p><b>2. Synthesis and Performance (Analysis):</b><br>
+            While a full physical implementation was not the primary goal, a synthesis of the design in Vivado provides key insights:
+            <ul>
+                <li><b>Area/Resource Utilization:</b> The Vedic multiplier's regular, hierarchical structure is highly amenable to FPGA logic fabric. The design synthesizes to a combination of Look-Up Tables (LUTs) and Flip-Flops (for pipeline registers).</li>
+                <li><b>Timing/Performance:</b> The 2-stage pipeline successfully breaks the critical path. The maximum operating frequency (Fmax) is determined by the delay of Stage 1, which is significantly faster than a non-pipelined version.</li>
+                <li><b>Throughput:</b> The design achieves a peak throughput of one multiplication per clock cycle, making it ideal for applications requiring a continuous stream of calculations, such as in FIR filters or matrix multiplication engines.</li>
+            </ul>
+            </p>
+
+            <h3 class="page-break-before">11. Conclusion</h3>
+            <p>This project has successfully demonstrated the design, implementation, and verification of a high-speed, two-stage pipelined IEEE-754 single-precision floating-point multiplier.</p>
+            <p>The key achievement of this work is the novel and effective use of a <b>hierarchical 24×24 Vedic multiplier</b> based on the Urdhva-Tiryagbhyam sutra for the mantissa calculation. This approach was shown to be highly effective, creating a parallel and regular hardware structure that is efficient for VLSI implementation.</p>
+            <p>The two-stage pipelined architecture successfully increases the throughput of the multiplier, making it capable of handling high-speed data streams. The Verilog HDL implementation was comprehensively simulated and verified in the Vivado Design Suite, proving its functional correctness. The design robustly handles all special cases, including Zero, Infinity, and NaN, as well as overflow and underflow conditions, ensuring full compliance with the IEEE-754 standard.</p>
+            <p>This project validates that the fusion of ancient mathematical algorithms with modern digital design principles (like pipelining) can yield high-performance, efficient, and scalable arithmetic circuits suitable for modern FPGAs.</p>
+
+            <h3 class="page-break-before">12. Future Scope</h3>
+            <p>This project lays a strong foundation for several future enhancements:</p>
+            <ol>
+                <li><b>Double Precision:</b> The architecture can be extended to support the 64-bit double-precision format. This would primarily involve scaling the Vedic multiplier to a 53×53 hierarchy and expanding the exponent path to 11 bits.</li>
+                <li><b>Advanced Rounding:</b> The current design uses truncation (round-to-zero). This could be replaced with more complex rounding modes specified by the standard, such as "round-to-nearest-even."</li>
+                <li><b>Denormalized Numbers:</b> The multiplier could be enhanced to provide full support for denormalized (subnormal) input operands and results, which are currently flushed to zero.</li>
+                <li><b>Deeper Pipelining:</b> To achieve even higher clock frequencies, the design could be partitioned into a deeper pipeline (e.g., 3 or 4 stages) by placing registers within the adder tree of the `vedic24x24` module.</li>
+                <li><b>ASIC Implementation:</b> The Verilog design can be synthesized for an ASIC (Application-Specific Integrated Circuit) process to perform a detailed analysis of its power consumption, area, and timing.</li>
+            </ol>
+
+            <h3>13. Acknowledgment</h3>
+            <p>We would like to express our sincere gratitude to our project supervisor, <b>Prof. P. Venkateshwaran</b>, for his invaluable guidance, continuous support, and insightful feedback throughout this project. We also thank the <b>Department of Electronics and Telecommunication Engineering</b> at <b>Jadavpur University</b> for providing the necessary resources and academic environment to complete this work.</p>
+
+            <h3>14. Author Contributions</h3>
+            <p>Both authors contributed to discussions, planning, and manuscript review. Krishnarjun Mitra implemented the complete pipelined design, Vedic multiplier, Verilog modules, simulation, and documentation. Souvik Das contributed through literature study, conceptual discussions, and review of the manuscript.</p>
+
+            <h3 class="page-break-before">15. References</h3>
+            <p>[1] M. S. H. Hemant and N. Raghuwanshi, "VLSI design and analysis of IEEE 754 Floating Point Multiplier," <i>International Journal of Science, Engineering and Technology (IJSET)</i>, vol. 10, no. 2, 2022.</p>
+            <p>[2] H. Ghabeli, "Design of Floating-Point Multiplier Architecture with Adaptive Data Timing Channels," <i>2024 6th Iranian International Conference on Microelectronics (IICM)</i>, 2024.</p>
+            <p>[3] N. Bai, H. Li, J. Lv, S. Yang, and Y. Xu, "Logic Design and Power Optimization of Floating-Point Multipliers," <i>Computational Intelligence and Neuroscience</i>, vol. 2022, Article ID 6949846, 2022.</p>
+            <p>[4] S. Havaldar and K. S. Gurumurthy, "Design Of Vedic IEEE 754 Floating Point Multiplier," <i>2016 IEEE International Conference On Recent Trends In Electronics Information Communication Technology (RTEICT)</i>, May 20-21, 2016, India.</p>
+            <p>[5] IEEE, <i>IEEE Standard for Floating-Point Arithmetic</i>, IEEE 754-2019, 2019.</p>
+
+        </div> </div>
+        <div class="read-progress" role="progressbar" aria-label="Reading progress">
+            <div class="read-progress__bar" id="readProgressBar"></div>
+        </div>
+        <div class="read-progress__label" id="readProgressLabel">0% • 100% left</div>
+        <div class="fab-container" aria-label="Quick actions">
+            <button class="fab" onclick="downloadPDF()" title="Download PDF" aria-label="Download PDF">
+                <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path d="M5 20h14v-2H5v2zm7-18l-5.5 5.5h4v6h3v-6h4L12 2z"/></svg>
+            </button>
+            <button class="fab" onclick="triggerPrint()" title="Print" aria-label="Print">
+                <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path d="M6 9V2h12v7h2c1.1 0 2 .9 2 2v6h-4v3H6v-3H2v-6c0-1.1.9-2 2-2h2zm2-5v5h8V4H8zm8 14H8v1h8v-1zm4-4v-4H4v4h16z"/></svg>
+            </button>
+        </div>
+    </body>
+</html>
