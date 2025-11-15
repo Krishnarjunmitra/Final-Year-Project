@@ -129,6 +129,14 @@
 
   <button id="toc-toggle" class="toc-toggle" aria-controls="toc-drawer" aria-expanded="false"
     aria-label="Toggle table of contents">Contents</button>
+  
+  <button id="column-toggle" class="column-toggle" aria-label="Toggle column layout" title="Toggle single/double column">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+      <rect x="3" y="4" width="8" height="16" fill="none" stroke="currentColor" stroke-width="2"/>
+      <rect x="13" y="4" width="8" height="16" fill="none" stroke="currentColor" stroke-width="2"/>
+    </svg>
+  </button>
+  
   <aside id="toc-drawer" class="toc-drawer" aria-label="Table of Contents Drawer" aria-hidden="true">
     <button id="toc-close" class="toc-close" aria-label="Hide contents" title="Hide">
       <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -233,19 +241,19 @@
         </li>
         <li>
           <div class="toc-entry"><span class="toc-title">3. IEEE-754 Floating Point Format</span><span
-              class="toc-dots"></span><span class="toc-page">7</span></div>
+              class="toc-dots"></span><span class="toc-page">6</span></div>
         </li>
         <li>
           <div class="toc-entry"><span class="toc-title">4. Proposed Architecture</span><span
-              class="toc-dots"></span><span class="toc-page">8</span></div>
+              class="toc-dots"></span><span class="toc-page">7</span></div>
         </li>
         <li>
           <div class="toc-entry"><span class="toc-title">5. Pipeline Architecture</span><span
-              class="toc-dots"></span><span class="toc-page">9</span></div>
+              class="toc-dots"></span><span class="toc-page">7</span></div>
         </li>
         <li>
           <div class="toc-entry"><span class="toc-title">6. Vedic Mantissa Multiplier</span><span
-              class="toc-dots"></span><span class="toc-page">10</span></div>
+              class="toc-dots"></span><span class="toc-page">9</span></div>
         </li>
         <li>
           <div class="toc-entry"><span class="toc-title">7. Implementation in Verilog HDL</span><span
@@ -265,7 +273,7 @@
         </li>
         <li>
           <div class="toc-entry"><span class="toc-title">11. Conclusion</span><span class="toc-dots"></span><span
-              class="toc-page">16</span></div>
+              class="toc-page">15</span></div>
         </li>
         <li>
           <div class="toc-entry"><span class="toc-title">12. Future Scope</span><span class="toc-dots"></span><span
@@ -273,15 +281,15 @@
         </li>
         <li>
           <div class="toc-entry"><span class="toc-title">13. Acknowledgment</span><span class="toc-dots"></span><span
-              class="toc-page">17</span></div>
+              class="toc-page">16</span></div>
         </li>
         <li>
           <div class="toc-entry"><span class="toc-title">14. Author Contributions</span><span
-              class="toc-dots"></span><span class="toc-page">18</span></div>
+              class="toc-dots"></span><span class="toc-page">16</span></div>
         </li>
         <li>
           <div class="toc-entry"><span class="toc-title">15. References</span><span class="toc-dots"></span><span
-              class="toc-page">19</span></div>
+              class="toc-page">17</span></div>
         </li>
       </ol>
     </section>
@@ -308,8 +316,7 @@
 
       <div class="keywords">
         <h3>Keywords</h3>
-        <p>IEEE-754, Floating Point Multiplier, Pipelining, Vedic Mathematics, Urdhva-Tiryagbhyam, Verilog, FPGA,
-          High-Speed Arithmetic, VLSI.</p>
+        <p>IEEE-754 Standard; Floating-Point Arithmetic; Single-Precision Multiplier; Pipelined Architecture; Vedic Mathematics; Urdhva-Tiryagbhyam Sutra; Hardware Description Language (HDL); Verilog RTL; Field-Programmable Gate Array (FPGA); Application-Specific Integrated Circuit (ASIC); High-Speed Arithmetic; Very Large Scale Integration (VLSI); Digital Signal Processing (DSP); Special Case Handling; NaN Propagation; Infinity Arithmetic; Mantissa Multiplication; Exponent Processing; Hierarchical Multiplier Design; Carry-Save Addition; Partial Product Reduction; Synthesis Optimization; Timing Closure; Throughput Maximization; Latency Minimization; Register-Transfer Level (RTL) Design; Vivado Design Suite; Functional Verification; Simulation Waveforms; IEEE Standard Compliance; Overflow/Underflow Detection; Normalization Logic; Denormalized Number Handling.</p>
       </div>
 
       <h3>1. Introduction</h3>
@@ -337,9 +344,7 @@
         multiplier. It combines the speed of a pipelined architecture with the structural efficiency of a
         hierarchically-designed 24×24 Vedic mantissa multiplier. The entire system is implemented in Verilog HDL,
         verified in Vivado, and handles all special cases (Zero, Inf, NaN) as specified by the IEEE-754 standard.</p>
-      <p>The following sections will cover the relevant literature, the fundamentals of the IEEE-754 standard, the
-        detailed architecture of our proposed multiplier, its implementation, and the simulation results that validate
-        its correctness.</p>
+      <p>The following sections cover the relevant literature, the IEEE-754 standard fundamentals, and the detailed architecture of our proposed multiplier.</p>
 
       <h3>2. Literature Review</h3>
       <p>The optimization of floating-point multipliers is a well-established field of research. Our work builds upon a
@@ -381,11 +386,12 @@
         <li><b>Fraction (F):</b> 23 bits (Bits 22-0). Represents the fractional part of the mantissa.</li>
       </ul>
 
-      <div class="diagram" id="diagram-ieee754-format">
+      <figure class="diagram" id="diagram-ieee754-format">
         <img src="assets/ieee754_format.png"
           alt="IEEE-754 32-bit floating point format showing sign, exponent, and fraction fields"
-          onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>[IEEE-754 Format Diagram - Image: assets/ieee754_format.png]</div>'">
-      </div>
+          onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>[Figure 1: IEEE-754 Single-Precision Format - Image: assets/ieee754_format.png]</div>'">
+        <figcaption><strong>Fig. 1:</strong> IEEE-754 Single-Precision Format</figcaption>
+      </figure>
 
       <p>For <i>normalized</i> numbers, the standard assumes a hidden "1" before the binary point of the fraction. Thus,
         the complete mantissa is `1.F`.</p>
@@ -395,24 +401,25 @@
       <p>The standard also defines several special cases, which our design must handle:</p>
       <ul>
         <li><b>Zero:</b> When `E = 0` (all zeros) and `F = 0` (all zeros). The sign bit can be 0 or 1, representing +0
-          and -0.</li>
+          and -0. Zero values require special handling in multiplication to ensure correct propagation: any number multiplied by zero must yield zero, preserving the appropriate sign based on the XOR of input signs.</li>
         <li><b>Infinity (Inf):</b> When `E = 255` (all ones) and `F = 0` (all zeros). This represents overflow or
-          division by zero.</li>
+          division by zero. In multiplication, infinity behaves such that Inf × (non-zero finite) = Inf, Inf × Inf = Inf, but Inf × 0 produces NaN, as this operation is mathematically indeterminate. Proper detection and priority handling of infinity cases ensures compliance with IEEE-754 semantics.</li>
         <li><b>Not-a-Number (NaN):</b> When `E = 255` (all ones) and `F ≠ 0` (non-zero). This represents the result of
-          invalid operations, such as `0/0` or `Inf × 0`.</li>
-        <li><b>Denormalized Numbers:</b> When `E = 0` and `F ≠ 0`. These represent very small numbers. Our design treats
-          denormalized inputs as zero, which is a common simplification in high-speed multipliers.</li>
+          invalid operations, such as `0/0` or `Inf × 0`. NaN has the highest priority in our exception handling hierarchy: any operation involving a NaN input must propagate NaN to the output, typically as a canonical quiet NaN (sign=0, E=255, F=0x400000). This ensures that computational errors are flagged and do not silently corrupt subsequent calculations.</li>
+        <li><b>Denormalized Numbers:</b> When `E = 0` and `F ≠ 0`. These represent very small numbers (subnormals) near the underflow threshold, with an implicit leading zero instead of one. Our design treats
+          denormalized inputs as zero, which is a common simplification in high-speed multipliers. This trade-off sacrifices precision for very small magnitudes in exchange for reduced hardware complexity and improved timing performance, as full denormal support would require additional normalization stages and leading-zero detection circuits.</li>
       </ul>
 
       <h3>4. Proposed Architecture</h3>
       <p>The proposed floating-point multiplier implements the multiplication of two 32-bit IEEE-754 numbers, `A` and
         `B`, to produce a 32-bit result, `Y`.</p>
 
-      <div class="diagram" id="diagram-proposed-architecture">
+      <figure class="diagram" id="diagram-proposed-architecture">
         <img src="assets/proposed_architecture.png"
           alt="Block diagram of the proposed floating point multiplier architecture"
-          onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>[Proposed Architecture Diagram - Image: assets/proposed_architecture.png]</div>'">
-      </div>
+          onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>[Figure 2: Proposed Floating Point Multiplier Architecture - Image: assets/proposed_architecture.png]</div>'">
+        <figcaption><strong>Fig. 2:</strong> Proposed Floating Point Multiplier Architecture</figcaption>
+      </figure>
 
       <p>The overall architecture is partitioned into several key functional units, which are mapped into a two-stage
         pipeline:</p>
@@ -449,13 +456,14 @@
 
       <h3>5. Pipeline Architecture</h3>
       <p>To achieve high throughput, the design is partitioned into a two-stage pipeline, separated by a bank of
-        registers. This allows the multiplier to begin calculating a new result while the previous result is in its
-        final stage. The `valid_in` and `valid_out` signals manage the data flow.</p>
+        registers. This architectural decision is fundamental to maximizing computational efficiency and enabling the multiplier to sustain a throughput of one operation per clock cycle. Pipelining breaks the critical path—the longest combinational delay between two flip-flops—into shorter segments, thereby allowing higher operating frequencies without sacrificing correctness. By inserting pipeline registers between Stage 1 and Stage 2, the design effectively overlaps the execution of multiple floating-point multiplications: while Stage 2 is finalizing the result for operation <i>n</i>, Stage 1 is concurrently processing the mantissa multiplication and exponent addition for operation <i>n+1</i>. This spatial and temporal parallelism is the cornerstone of high-performance arithmetic units in modern processors and FPGAs.</p>
+      <p>The `valid_in` and `valid_out` handshake signals provide robust flow control and synchronization. When an upstream module (such as a memory controller or another functional unit) has valid data ready, it asserts `valid_in` for one clock cycle while presenting operands `a` and `b`. The input registers (`a_r`, `b_r`, `valid_r`) capture this data on the rising edge of `clk`. The `valid_in` signal propagates through the pipeline stages as `valid_r` and `valid_stage1`, ultimately emerging as `valid_out` two clock cycles later, synchronized with the computed result `y`. This handshake protocol ensures that downstream logic only consumes results when they are guaranteed to be correct, preventing race conditions and enabling seamless integration into larger, complex System-on-Chip (SoC) designs. The pipeline latency is deterministically two clock cycles, and once the pipeline is filled, one new result is produced every clock cycle, achieving optimal throughput for sustained workloads such as vector dot products, matrix multiplications, or real-time DSP filtering operations.</p>
 
-      <div class="diagram" id="diagram-pipeline-architecture">
+      <figure class="diagram" id="diagram-pipeline-architecture">
         <img src="assets/pipeline_architecture.png" alt="Pipeline architecture diagram showing Stage 1 and Stage 2"
-          onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>[Pipeline Architecture Diagram - Image: assets/pipeline_architecture.png]</div>'">
-      </div>
+          onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>[Figure 3: Two-Stage Pipeline Architecture - Image: assets/pipeline_architecture.png]</div>'">
+        <figcaption><strong>Fig. 3:</strong> Two-Stage Pipeline Architecture</figcaption>
+      </figure>
 
       <h4>Stage 1: Multiply and Add</h4>
       <p>This stage contains the most computationally intensive logic. It performs the parallel multiplication of the
@@ -517,95 +525,151 @@
 
       <h3>6. Vedic Mantissa Multiplier</h3>
       <p>The core of our design's performance and structural regularity comes from the 24×24 mantissa multiplier, which
-        is built using the principles of Vedic mathematics.</p>
+        is built using the principles of Vedic mathematics. Vedic mathematics, derived from ancient Indian scriptures (the Vedas), encompasses a collection of mathematical techniques and sutras (aphorisms) that provide elegant, efficient algorithms for arithmetic operations. Among these, the Urdhva-Tiryagbhyam sutra stands out for its applicability to digital multiplication, offering inherent parallelism that aligns perfectly with modern hardware design paradigms.</p>
 
       <h4>Urdhva-Tiryagbhyam (Vertically & Crosswise)</h4>
-      <p>This sutra provides a general "divide and conquer" algorithm for multiplication. To multiply two N-bit numbers,
-        we split them into two N/2-bit halves:</p>
+      <p>The Urdhva-Tiryagbhyam sutra, translating to "vertically and crosswise," provides a general "divide and conquer" algorithm for multiplication that is fundamentally different from traditional shift-and-add or Booth encoding methods. The key insight of this sutra is that multiplication can be decomposed into independent, parallel cross-multiplication operations, which are then combined through summation. This property directly translates to hardware efficiency: independent operations can be computed concurrently without complex control logic, and the regular structure simplifies both design and verification.</p>
+      <p>To multiply two N-bit numbers using this sutra, we split them into two N/2-bit halves:</p>
       <ul>
-        <li>`A = A_hi | A_lo`</li>
-        <li>`B = B_hi | B_lo`</li>
+        <li>`A = A_hi | A_lo` (where `A_hi` represents the upper N/2 bits and `A_lo` the lower N/2 bits)</li>
+        <li>`B = B_hi | B_lo` (similarly partitioned)</li>
       </ul>
-      <p>The product `P = A × B` is then calculated in four parallel steps:</p>
+      <p>The product `P = A × B` is then calculated in four parallel, independent steps. These four partial products correspond to the cross-multiplication terms that emerge from the algebraic expansion:</p>
       <ol>
-        <li>`P0 = A_lo × B_lo` (low × low)</li>
-        <li>`P1 = A_lo × B_hi` (low × high)</li>
-        <li>`P2 = A_hi × B_lo` (high × low)</li>
-        <li>`P3 = A_hi × B_hi` (high × high)</li>
+        <li>`P0 = A_lo × B_lo` (low × low) – represents the least significant portion of the product</li>
+        <li>`P1 = A_lo × B_hi` (low × high) – cross-term contributing to middle bits</li>
+        <li>`P2 = A_hi × B_lo` (high × low) – another cross-term for middle bits</li>
+        <li>`P3 = A_hi × B_hi` (high × high) – represents the most significant portion</li>
       </ol>
-      <p>These four partial products are then summed with appropriate bit-shifts to produce the final 2N-bit result:</p>
+      <p>These four partial products are then summed with appropriate bit-shifts to produce the final 2N-bit result. The shifting accounts for the positional weight of each partial product in the final result:</p>
       <p class="formula"><i>P = (P3 &lt;&lt; N) + ((P1 + P2) &lt;&lt; (N/2)) + P0</i></p>
+      <p>This formulation reveals a critical advantage: all four partial products (`P0` through `P3`) can be computed simultaneously, as they have no data dependencies on each other. In hardware, this translates to four parallel multiplier instances operating concurrently, drastically reducing latency compared to sequential methods. Furthermore, the addition of these shifted partial products can be implemented using efficient multi-operand adder structures such as carry-save adders or Wallace/Dadda trees, which synthesis tools can automatically optimize.</p>
 
       <h4>Hierarchical Architecture</h4>
-      <p>Our design applies this principle recursively to build the 24×24 multiplier.</p>
+      <p>Our design applies the Urdhva-Tiryagbhyam principle recursively to build the 24×24 multiplier, creating a deeply hierarchical structure that maximizes regularity and design reuse. This recursive decomposition is conceptually elegant: each level of the hierarchy solves the same problem (multiplication) at a smaller scale, using identical algorithmic principles. From a hardware perspective, this yields a highly modular design where each level is independently verifiable, and the overall structure exhibits predictable timing and resource utilization characteristics.</p>
+      <p>The hierarchical structure consists of four distinct levels, each doubling the operand size of the previous level. The recursive nature ensures that design effort is minimized—once a single level is verified, the higher levels are constructed simply by instantiation and interconnection, with minimal additional logic.</p>
 
-      <!-- <div class="diagram" id="diagram-vedic-hierarchy">
+      <!-- <figure class="diagram" id="diagram-vedic-hierarchy">
         <img src="assets/vedic_hierarchy.png" alt="Hierarchical structure of Vedic multiplier from 3x3 to 24x24"
-          onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>[Vedic Multiplier Hierarchy Diagram - Image: assets/vedic_hierarchy.png]</div>'">
-      </div> -->
+          onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>[Figure 4: Vedic Multiplier Hierarchy - Image: assets/vedic_hierarchy.png]</div>'">
+        <figcaption><strong>Fig. 4:</strong> Vedic Multiplier Hierarchy</figcaption>
+      </figure> -->
 
       <ol>
-        <li><b>Base Case: 3×3 Multiplier (`vedic3x3`)</b><br>This is the fundamental block. It takes two 3-bit inputs
-          and generates a 6-bit product. This is implemented as a small combinational block using the Urdhva-Tiryagbhyam
-          partial-product method.</li>
-        <li><b>6×6 Multiplier (`vedic6x6`)</b><br>This module is constructed from four `vedic3x3` instances. It splits
-          the 6-bit inputs `a` and `b` into 3-bit high/low halves (`a_hi`, `a_lo`, `b_hi`, `b_lo`). It then computes the
-          four partial products and sums them with 3-bit and 6-bit shifts.</li>
-        <li><b>12×12 Multiplier (`vedic12x12`)</b><br>Following the same pattern, this module uses four `vedic6x6`
-          instances. It splits the 12-bit inputs into 6-bit halves and combines the results with 6-bit and 12-bit
-          shifts.</li>
-        <li><b>24×24 Multiplier (`vedic24x24`)</b><br>This is the final module used by the FPU. It instantiates four
-          `vedic12x12` multipliers. It splits the 24-bit mantissas into 12-bit halves and combines the four 24-bit
-          partial products with 12-bit and 24-bit shifts using a simple adder tree to produce the final 48-bit result.
-        </li>
+        <li><b>Base Case: 3×3 Multiplier (`vedic3x3`)</b><br>This is the fundamental, atomic building block of the entire hierarchy. It takes two 3-bit unsigned inputs and generates a 6-bit product using purely combinational logic. At this scale, the Urdhva-Tiryagbhyam method can be implemented directly using bitwise AND gates to generate partial products, followed by a small network of half-adders and full-adders to sum them. Alternatively, for simplicity and to leverage synthesis tool optimizations, the module can use a direct multiplication operator (`p = a * b`), allowing the synthesis tool to map it to the most efficient available hardware primitives (LUTs, dedicated DSP slices, etc.). This base case terminates the recursion and represents the smallest indivisible multiplication unit. Its simplicity ensures minimal delay and area, which is critical since this module will be instantiated hundreds of times in the complete 24×24 structure.</li>
+        
+        <li><b>6×6 Multiplier (`vedic6x6`)</b><br>This module is constructed from four `vedic3x3` instances, representing the first level of hierarchical composition. It partitions the 6-bit inputs `a` and `b` into 3-bit high and low halves: `a[5:3]` (high), `a[2:0]` (low), and similarly for `b`. Following the Urdhva-Tiryagbhyam formula, it computes four 6-bit partial products by invoking `vedic3x3` for each combination: `p0 = a_lo × b_lo`, `p1 = a_lo × b_hi`, `p2 = a_hi × b_lo`, `p3 = a_hi × b_hi`. These partial products are then aligned and summed with 3-bit and 6-bit left shifts to produce the final 12-bit result: `p = {p3, 6'b0} + {3'b0, p2, 3'b0} + {3'b0, p1, 3'b0} + {6'b0, p0}`. The adder network at this level is relatively small (combining four 12-bit terms), and synthesis tools typically implement this using carry-lookahead or carry-select adders for optimal speed.</li>
+        
+        <li><b>12×12 Multiplier (`vedic12x12`)</b><br>Following the same recursive pattern, this module uses four `vedic6x6` instances. It splits the 12-bit inputs into 6-bit high and low halves (`a[11:6]` and `a[5:0]`, respectively, and similarly for `b`). The four `vedic6x6` multipliers compute 12-bit partial products, which are then shifted by 6 bits and 12 bits and summed to produce the final 24-bit result. At this hierarchy level, the adder network becomes more complex, combining four 24-bit operands. However, the regular structure allows synthesis tools to generate optimized adder trees, and the modular nature simplifies timing analysis—critical path delays can be calculated recursively from lower levels. The `vedic12x12` module serves as the intermediate layer that bridges the gap between small-scale (6×6) and large-scale (24×24) multipliers.</li>
+        
+        <li><b>24×24 Multiplier (`vedic24x24`)</b><br>This is the top-level Vedic multiplier module used by the floating-point unit. It instantiates four `vedic12x12` multipliers, representing the final and largest level of the hierarchy. The 24-bit mantissa operands (which include the implicit leading-one bit of the IEEE-754 format) are split into 12-bit high and low halves. The four `vedic12x12` instances compute four 24-bit partial products: `p0` (low×low), `p1` (low×high), `p2` (high×low), and `p3` (high×high). These are shifted by 12 bits and 24 bits and summed to produce the final 48-bit product. The summation is performed using a simple but efficient four-operand adder tree. In hardware, this is typically implemented as a two-level carry-save adder (CSA) structure: the first level reduces the four 48-bit operands to two (sum and carry), and the second level uses a fast carry-propagate adder (CPA) to produce the final result. Synthesis tools automatically recognize this pattern and optimize it for the target FPGA or ASIC technology, often utilizing dedicated fast-carry chains or DSP blocks. The 48-bit product output feeds directly into the normalization logic in the floating-point pipeline, where the MSB is checked to determine whether a right-shift normalization is required.</li>
       </ol>
-      <p>This hierarchical structure is highly regular, which simplifies design, verification, and physical layout on an
-        FPGA, reducing routing congestion.</p>
+      
+      <p>This hierarchical structure is highly regular and exhibits several key advantages for FPGA and ASIC implementation. <b>Regularity:</b> Each level follows an identical structural pattern—split inputs, instantiate four sub-multipliers, shift and sum partial products—making the design easy to understand, verify, and debug. <b>Modularity:</b> Each hierarchy level is an independent, self-contained module with well-defined interfaces, enabling parallel development and unit testing. <b>Scalability:</b> The recursive nature means the design can be easily extended to larger operand sizes (e.g., 48×48 for double-precision) by adding one more hierarchy level. <b>Verification:</b> Each level can be verified independently using directed or random test vectors; once the base case (`vedic3x3`) is proven correct, higher levels inherit correctness through composition. <b>Physical Layout and Routing:</b> The hierarchical structure simplifies FPGA place-and-route algorithms. The regular, tree-like topology reduces routing congestion and wire delays, as connections between hierarchy levels are localized and predictable. This results in better timing closure and higher maximum operating frequencies compared to irregular, flat multiplier structures. Additionally, the balanced tree depth (log₄(24) ≈ 2.3 levels) ensures that signal paths from inputs to outputs traverse a uniform number of logic stages, minimizing clock skew and simplifying timing constraints.</p>
 
-      <h3>7. Implementation in Verilog HDL</h3>
-      <p>The entire design was implemented in synthesizable Verilog HDL, following a modular, hierarchical approach.</p>
+      <h3 class="page-break-before">7. Implementation in Verilog HDL</h3>
+      <p>The entire design was implemented in synthesizable Verilog HDL, following a modular, hierarchical approach. The implementation is structured across multiple source files, each representing a distinct functional unit, enabling independent verification and promoting design reusability. All modules adhere to industry-standard coding practices, ensuring portability across synthesis and simulation tools.</p>
+      
+      <h4>7.1 Top-Level Module: `fp_mul_pipelined.v`</h4>
+      <p>The `fp_mul_pipelined` module serves as the top-level entity, orchestrating the entire floating-point multiplication operation. It implements a robust two-stage pipelined architecture designed to maximize throughput while maintaining functional correctness across all IEEE-754 special cases.</p>
+      <p><b>Port Interface:</b></p>
       <ul>
-        <li><b>`fp_mul_pipelined.v` (TOP):</b> This is the top-level module that instantiates all other components. It
-          defines the two-stage pipeline, including the main pipeline registers (`mant_r`, `expu_r`, etc.) and the
-          Stage-2 combinational logic for normalization and special case selection.</li>
-        <li><b>`vedic24x24.v`:</b> This module implements the 24-bit unsigned multiplication. It instantiates four
-          `vedic12x12` modules and contains the adders required to sum the four shifted partial products.</li>
-        <li><b>`vedic12x12.v`:</b> This module implements the 12-bit unsigned multiplication using four `vedic6x6`
-          instances and their corresponding adders.</li>
-        <li><b>`vedic6x6.v`:</b> This module implements the 6-bit unsigned multiplication using four `vedic3x3`
-          instances.</li>
-        <li><b>`vedic3x3.v`:</b> This is the base-case 3-bit unsigned multiplier.</li>
-        <li><b>`tb_fp_mul_pipelined.v`:</b> A comprehensive testbench was created to verify the design. It generates a
-          100 MHz clock and defines a task `apply_input` to feed test vectors to the multiplier and wait for the
-          `valid_out` signal, checking the result.</li>
+        <li><b>Input:</b> `clk` (clock), `rstn` (active-low asynchronous reset), `a[31:0]` and `b[31:0]` (32-bit IEEE-754 operands), `valid_in` (input data valid signal)</li>
+        <li><b>Output:</b> `y[31:0]` (32-bit IEEE-754 result), `valid_out` (output data valid signal)</li>
       </ul>
-      <p>This modularity allows for each component of the Vedic multiplier to be tested and verified independently
-        before being integrated into the main FPU datapath.</p>
+      <p><b>Pipeline Architecture:</b></p>
+      <ul>
+        <li><b>Stage 0 (Input Capture):</b> Registers `a_r`, `b_r`, and `valid_r` capture input operands on every clock cycle, providing synchronization and timing isolation from upstream logic.</li>
+        <li><b>Stage 1 (Mantissa Multiplication & Exponent Addition):</b> The captured operands are decomposed into sign, exponent (8 bits), and fraction (23 bits). Implicit leading-one bits are restored for normalized numbers, forming 24-bit mantissas (`man_a`, `man_b`). The `vedic24x24` multiplier computes the 48-bit product (`man_prod`). Concurrently, exponents are summed (`exp_sum`) and special case flags (zero, infinity, NaN) are evaluated. Normalization logic determines whether the MSB of the product (`man_prod[47]`) is set; if so, the mantissa is right-shifted by one position, and the exponent is incremented accordingly. The normalized 23-bit mantissa (`mant_trunc`), adjusted exponent (`exp_unbiased_signed`), special case flags, and result sign are registered at the end of Stage 1.</li>
+        <li><b>Stage 2 (Result Finalization & Exception Handling):</b> Combinational logic evaluates the registered flags in priority order: NaN (highest priority), Infinity, Zero, followed by normal case processing. For normal results, the signed exponent is checked for overflow (>254 → +Inf) and underflow (≤0 → Zero). Valid results are formatted as IEEE-754 single-precision numbers. The final output and `valid_out` flag are registered, ensuring clean, glitch-free outputs.</li>
+      </ul>
+      <p><b>Special Case Handling:</b> The module implements complete IEEE-754 exception semantics: any operation involving NaN propagates a quiet NaN (`0x7FC00000`). Infinity multiplied by zero produces NaN. Infinity multiplied by any non-zero finite number produces signed infinity. Any multiplication with zero (except NaN or 0×Inf) produces signed zero. Overflow conditions produce signed infinity, and underflow conditions produce signed zero.</p>
+      <p><b>Key Design Features:</b> All internal registers are protected by the asynchronous active-low reset (`rstn`), ensuring deterministic startup behavior. The `valid_in`/`valid_out` handshake protocol allows seamless integration with upstream and downstream pipeline stages, enabling backpressure and flow control in complex SoC designs. The design is fully synthesizable and optimized for FPGA and ASIC targets.</p>
+
+      <h4>7.2 24-bit Vedic Multiplier: `vedic24x24.v`</h4>
+      <p>The `vedic24x24` module implements the top level of the Vedic multiplication hierarchy, computing the unsigned product of two 24-bit operands to produce a 48-bit result. This multiplication is critical for IEEE-754 floating-point mantissa processing.</p>
+      <p><b>Algorithm:</b> The module splits each 24-bit operand into two 12-bit halves (`a_hi`, `a_lo`, `b_hi`, `b_lo`) and applies the Urdhva-Tiryakbhyam sutra, computing four 24-bit partial products via four `vedic12x12` instantiations:</p>
+      <ul>
+        <li>`p0 = a_lo × b_lo` (aligned at bit position 0)</li>
+        <li>`p1 = a_lo × b_hi` (shifted left by 12 bits)</li>
+        <li>`p2 = a_hi × b_lo` (shifted left by 12 bits)</li>
+        <li>`p3 = a_hi × b_hi` (shifted left by 24 bits)</li>
+      </ul>
+      <p>The final 48-bit product is computed combinationally as: `p = term0 + term1 + term2 + term3`, where each term represents the appropriately shifted partial product. The synthesis tool automatically optimizes this multi-operand addition into an efficient carry-save or parallel-prefix adder tree, minimizing critical path delay.</p>
+      <p><b>Resource Utilization:</b> The module instantiates four `vedic12x12` units and a 48-bit adder network. Due to the hierarchical decomposition, the adder fanout is well-balanced, facilitating high-frequency operation on FPGA fabrics.</p>
+
+      <h4>7.3 12-bit Vedic Multiplier: `vedic12x12.v`</h4>
+      <p>The `vedic12x12` module extends the Vedic methodology to 12-bit operands, producing a 24-bit product. It mirrors the structure of `vedic24x24`, partitioning inputs into 6-bit segments and recursively applying the Urdhva-Tiryakbhyam algorithm.</p>
+      <p><b>Implementation:</b> Four `vedic6x6` instances compute partial products (`p0`, `p1`, `p2`, `p3`), which are then shifted and summed: `p = p0 + (p1<<6) + (p2<<6) + (p3<<12)`. The combinational adder network efficiently combines these terms into the final 24-bit product.</p>
+      <p><b>Design Considerations:</b> The 6-bit shift intervals maintain arithmetic alignment and minimize carry propagation complexity. This intermediate hierarchy level balances logic depth and fanout, achieving optimal synthesis results across diverse FPGA families.</p>
+
+      <h4>7.4 6-bit Vedic Multiplier: `vedic6x6.v`</h4>
+      <p>The `vedic6x6` module processes 6-bit inputs to generate a 12-bit product, serving as the penultimate layer in the Vedic hierarchy. Inputs are split into 3-bit segments, with four `vedic3x3` instantiations computing partial products.</p>
+      <p><b>Datapath:</b> Partial products are aligned and summed: `p = term0 + term1 + term2 + term3`, where `term1` and `term2` are left-shifted by 3 bits, and `term3` is left-shifted by 6 bits. The combinational logic ensures that all partial sums converge within a single clock cycle (when used in a pipelined context), contributing to the overall low-latency characteristic of the design.</p>
+      <p><b>Synthesis Optimization:</b> Modern synthesis tools recognize this pattern and map it to optimized LUT-based adder structures, reducing both area and delay.</p>
+
+      <h4>7.5 3-bit Vedic Base Multiplier: `vedic3x3.v`</h4>
+      <p>The `vedic3x3` module forms the fundamental building block of the entire Vedic multiplier tree. It computes the product of two 3-bit unsigned integers, producing a 6-bit result using purely combinational logic.</p>
+      <p><b>Implementation Strategy:</b> Due to the small operand size, the module employs direct bitwise AND operations to generate partial product terms, followed by manual carry-propagate addition or, for simplicity and correctness, leverages the synthesizer's ability to optimize the expression `p = a * b` into an efficient gate-level netlist. This approach guarantees functional correctness while allowing synthesis tools to apply vendor-specific optimizations (e.g., dedicated multiplier primitives or LUT-based implementations).</p>
+      <p><b>Critical Role:</b> As the leaf node of the multiplication tree, `vedic3x3` is instantiated 256 times in the complete `vedic24x24` hierarchy (64 instances in each `vedic6x6`, 16 `vedic6x6` in each `vedic12x12`, etc.). Its simplicity and low gate count ensure minimal area overhead and maximum reusability.</p>
+
+      <h4>7.6 Testbench: `tb_fp_mul_pipelined.v`</h4>
+      <p>A comprehensive self-checking testbench, `tb_fp_mul_pipelined`, was developed to validate functional correctness across the IEEE-754 specification. The testbench instantiates the `fp_mul_pipelined` DUT (Device Under Test) and applies a suite of test vectors covering normal arithmetic, special cases (zero, infinity, NaN), and boundary conditions (overflow, underflow).</p>
+      <p><b>Clock Generation:</b> A 100 MHz clock (10 ns period) is generated via an `always` block, simulating a realistic FPGA operating frequency.</p>
+      <p><b>Test Methodology:</b> The `apply_input` task encapsulates the test vector application procedure. It drives the `a`, `b`, and `valid_in` inputs, then polls the `valid_out` signal with a timeout mechanism (40 clock cycles) to detect pipeline completion. Upon receiving `valid_out`, the task invokes `check_and_report` to compare the actual output (`y`) against the expected result (`expY`), logging PASS/FAIL status with detailed diagnostic information (hex values, timestamps).</p>
+      <p><b>Test Coverage:</b></p>
+      <ul>
+        <li><b>Case 1 (Normal Operation):</b> `3.5 × -2.0 = -7.0` validates correct sign handling, exponent arithmetic, and mantissa multiplication.</li>
+        <li><b>Case 2 (Fractional Operands):</b> `1.5 × 2.0 = 3.0` tests normalized mantissa processing.</li>
+        <li><b>Case 3 (Zero Handling):</b> `0.0 × 5.0 = 0.0` confirms zero detection and propagation.</li>
+        <li><b>Case 4 (Infinity Arithmetic):</b> `+Inf × 2.0 = +Inf` verifies infinity preservation.</li>
+        <li><b>Case 5 (NaN Propagation):</b> `NaN × 2.0 = NaN` ensures highest-priority exception handling, with the canonical quiet NaN (`0x7FC00000`) generated by the design.</li>
+      </ul>
+      <p><b>VCD Waveform Dumping:</b> The testbench generates a Value Change Dump (VCD) file (`waveforms_all.vcd`) via `$dumpfile` and `$dumpvars`, enabling detailed waveform analysis in tools such as GTKWave or Vivado's built-in waveform viewer. This facilitates debugging and timing verification.</p>
+      <p><b>Timeout Handling:</b> If `valid_out` does not assert within the expected window, the testbench logs a timeout error, aiding in the detection of pipeline stalls or incorrect control logic.</p>
+      <p><b>Extensibility:</b> The modular task-based structure allows straightforward addition of new test cases, making the testbench suitable for regression testing and continuous integration workflows.</p>
+
+      <h4>7.7 Design Verification and Coding Standards</h4>
+      <p>All Verilog modules strictly adhere to synthesizable RTL coding practices. No unsynthesizable constructs (e.g., delays in non-testbench code, `initial` blocks in synthesizable modules) are present. The design uses blocking assignments (`=`) only in combinational `always @*` blocks and non-blocking assignments (`<=`) in sequential `always @(posedge clk)` blocks, eliminating race conditions and ensuring deterministic simulation and synthesis behavior.</p>
+      <p>Parameterization and modularity enable straightforward adaptation to different precision requirements (e.g., extending to IEEE-754 double precision) or alternative multiplication algorithms. Each module is self-contained with clearly defined interfaces, promoting design reuse and IP integration.</p>
+
 
       <div class="schematic-section">
         <h3>8. Schematic Overview</h3>
-        <p>After the Verilog HDL code was synthesized using the Vivado Design Suite, a Register-Transfer Level (RTL)
+        <p class="schematic-intro">After the Verilog HDL code was synthesized using the Vivado Design Suite, a Register-Transfer Level (RTL)
           schematic was generated. This schematic provides a visual representation of the hardware architecture.</p>
 
-        <div class="diagram" id="diagram-rtl-schematic">
+        <figure class="diagram schematic-figure" id="diagram-rtl-schematic">
           <img src="assets/rtl_schematic.png" alt="Register Transfer Level schematic from Vivado synthesis"
-            onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>[RTL Schematic Diagram - Image: assets/rtl_schematic.png]</div>'">
-        </div>
+            onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>[Figure 5: RTL Schematic - Image: assets/rtl_schematic.png]</div>'">
+          <figcaption><strong>Fig. 5:</strong> RTL Schematic</figcaption>
+        </figure>
 
-        <p>The schematic clearly shows the two-stage pipelined architecture. The first stage (left) consists of the
-          input
-          registers and the large block of combinational logic corresponding to the `vedic24x24` multiplier and the
-          exponent adder. A clear bank of flip-flops (the pipeline registers) separates the two stages. The second stage
-          (right) consists of the large multiplexer network that implements the priority logic for selecting NaN, Inf,
-          Zero, or the normalized result, along with the final output registers. The hierarchical nature of the
-          `vedic24x24` module is visible, with the schematic showing the nested `vedic12x12`, `vedic6x6`, and `vedic3x3`
-          blocks.</p>
+        <p>The RTL schematic provides a comprehensive view of the synthesized hardware implementation, clearly illustrating the two-stage pipelined architecture that forms the core of the floating-point multiplier design. The spatial organization from left to right directly corresponds to the temporal progression through the pipeline stages, making the data flow and computational partitioning immediately apparent.</p>
+        
+        <p><b>Stage 1 Architecture (Left Half):</b> The first stage occupies the left portion of the schematic and contains the most computationally intensive operations. At the input boundary, we observe the `a[31:0]` and `b[31:0]` input ports feeding into a bank of 32-bit registers, which capture the incoming operands on the rising edge of `clk` when `valid_in` is asserted. These input registers ensure that the operands remain stable throughout the entire computation cycle, preventing any timing issues due to changing inputs. Immediately following the input registers, the schematic reveals the field extraction logic, which decomposes each 32-bit floating-point number into its constituent sign bit (S), 8-bit exponent (E), and 23-bit fraction (F) fields. This extraction is purely combinational, implemented via simple bit-slicing operations that route specific wire ranges to different computational units.</p>
+        
+        <p>The dominant feature of Stage 1 is the large hierarchical block labeled `vedic24x24`, which performs the unsigned integer multiplication of the extended 24-bit mantissas (the hidden '1' bit concatenated with the 23-bit fraction). The schematic clearly exposes the recursive Vedic multiplier hierarchy: the top-level `vedic24x24` instance is constructed from four `vedic12x12` sub-modules (visible as nested blocks within the larger structure), each of which is in turn built from four `vedic6x6` modules, and finally, each `vedic6x6` comprises four `vedic3x3` base multipliers. This nested, tree-like structure is visually evident in the schematic, with interconnecting carry and sum buses forming a structured lattice pattern. The synthesis tool has preserved this hierarchy to facilitate design understanding and timing analysis, although in the final netlist, all levels are flattened into a single optimized logic cloud.</p>
+        
+        <p>Adjacent to the Vedic multiplier block, the exponent addition logic is visible as a compact adder structure that computes `E_a + E_b - 127`, producing the raw exponent for the product. The sign calculation logic, a simple XOR gate (`sign_result = sign_a ^ sign_b`), is also present but occupies minimal area due to its trivial Boolean complexity. All these Stage 1 computations are purely combinational; no internal registers exist within this stage except at the boundaries.</p>
+        
+        <p><b>Pipeline Register Bank (Center):</b> A prominent vertical column of flip-flops is clearly visible in the center of the schematic, forming a distinct boundary between the two stages. This register bank captures all intermediate results from Stage 1—the 48-bit raw mantissa product, the raw exponent sum, the result sign bit, and the special case flags (zero, infinity, NaN detection signals)—on the rising edge of `clk`. The presence of these registers is the defining characteristic of the pipelined architecture: they cut the critical path in half, allowing each stage to operate at a much higher clock frequency than would be possible in a single-cycle combinational design. The schematic shows these registers as a clean, organized array, emphasizing their role as a synchronization barrier.</p>
+        
+        <p><b>Stage 2 Architecture (Right Half):</b> The second stage, occupying the right portion of the schematic, is dominated by a large multiplexer network that implements the IEEE-754 special case priority logic. This logic examines the special case flags propagated from Stage 1 and determines which result to output: if either operand is NaN, the output is forced to the canonical quiet NaN (`32'h7FC00000`); if both operands are infinity, the result is infinity with the correct sign; if either operand is zero, the output is zero; otherwise, the normalized product from the mantissa and exponent computation is selected. The schematic reveals this priority logic as a tree of 2:1 multiplexers, with the NaN case having the highest priority (implemented as the final multiplexer stage closest to the output).</p>
+        
+        <p>In the normalized result path, the normalization and rounding logic is visible. The 48-bit raw product from Stage 1 is examined to determine whether the leading bit is set (indicating a product in the range [2, 4), requiring a right shift and exponent increment) or clear (product in range [1, 2), already normalized). The schematic shows the barrel shifter or conditional shift logic that performs this adjustment, followed by the rounding unit that truncates the 48-bit mantissa to 23 bits according to the IEEE-754 round-to-nearest-even rule (though for simplicity, our design uses truncation, which corresponds to round-toward-zero). The final 32-bit result is assembled by concatenating the sign bit, the adjusted 8-bit exponent, and the rounded 23-bit fraction.</p>
+        
+        <p>At the output boundary, another bank of registers captures the final result `y[31:0]` and the `valid_out` signal, ensuring clean, glitch-free outputs that are synchronized to the clock edge. The `valid_out` signal is generated by a simple 2-bit shift register (visible as a small chain of flip-flops) that delays the `valid_in` signal by exactly two clock cycles, matching the pipeline depth.</p>
+        
+        <p><b>Control and Handshaking Logic:</b> Throughout the schematic, the clock (`clk`) and active-low reset (`rstn`) signals are distributed to all registers, forming a global timing reference. The reset logic ensures that all flip-flops initialize to a known state (typically zero) upon power-up or explicit reset, preventing undefined behavior. The handshaking signals `valid_in` and `valid_out` are routed alongside the data paths, providing a simple but robust flow control mechanism that allows upstream and downstream modules to coordinate data transfers without requiring complex state machines.</p>
+        
+        <p>The hierarchical organization, the clear separation of pipeline stages, and the efficient utilization of FPGA resources (LUTs for combinational logic, flip-flops for registers, and potentially DSP slices for portions of the Vedic multiplier) are all evident in the RTL schematic, providing strong confirmation that the Verilog HDL code has been correctly interpreted and optimized by the synthesis tool.</p>
       </div>
 
       <h3>9. Simulation and Waveform Analysis</h3>
       <p>The design was functionally verified by simulating the `tb_fp_mul_pipelined` testbench in the Vivado simulator.
         The testbench was designed to cover normal operation as well as all special cases defined by the IEEE-754
-        standard.</p>
+        standard, including zero multiplication, NaN propagation, infinity handling, and edge cases involving denormalized numbers. Each test case applies specific input operands and monitors the output to ensure bit-exact correctness, verifying both the computational accuracy and the proper timing of the pipeline's handshaking signals (`valid_in` and `valid_out`).</p>
       <p>The testbench generates a 100 MHz clock (10 ns period). The `apply_input` task asserts `valid_in` for one
         cycle. Due to the two-stage pipeline, the corresponding `valid_out` signal is expected to go high <i>two</i>
         clock cycles later.</p>
@@ -616,10 +680,11 @@
         <li><b>Input B:</b> `-2.0` = `32'hC0000000`</li>
         <li><b>Expected Y:</b> `-7.0` = `32'hC0E00000`</li>
       </ul>
-      <div class="diagram" id="diagram-waveform-normal">
+      <figure class="diagram" id="diagram-waveform-normal">
         <img src="assets/waveform_normal.png" alt="Simulation waveform for normal multiplication (3.5 × -2.0)"
-          onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>[Normal Operation Waveform - Image: assets/waveform_normal.png]</div>'">
-      </div>
+          onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>[Figure 6: Simulation Waveform - Normal Operation - Image: assets/waveform_normal.png]</div>'">
+        <figcaption><strong>Fig. 6:</strong> Simulation Waveform - Normal Operation</figcaption>
+      </figure>
       <p>The waveform shows the inputs `a` and `b` being applied. Two clock cycles later, the output `y` correctly
         settles to `C0E00000` and `valid_out` pulses high for one cycle, confirming the correct result and pipeline
         latency.</p>
@@ -630,12 +695,13 @@
         <li><b>Input B:</b> `5.0` = `32'h40A00000`</li>
         <li><b>Expected Y:</b> `0.0` = `32'h00000000`</li>
       </ul>
-      <div class="diagram" id="diagram-waveform-zero">
+      <figure class="diagram" id="diagram-waveform-zero">
         <img src="assets/waveform_zero.png" alt="Simulation waveform for zero multiplication (0 × 5.0)"
-          onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>[Zero Handling Waveform - Image: assets/waveform_zero.png]</div>'">
-      </div>
-      <p>As seen in the simulation, the special case logic in Stage 1 detects the zero input. In Stage 2, the priority
-        selector multiplexes the correct zero representation (`32'h00000000`) to the output.</p>
+          onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>[Figure 7: Simulation Waveform - Zero Handling - Image: assets/waveform_zero.png]</div>'">
+        <figcaption><strong>Fig. 7:</strong> Simulation Waveform - Zero Handling</figcaption>
+      </figure>
+      <p>As seen in the simulation waveform, the special case logic in Stage 1 detects the zero input early in the pipeline by examining the exponent and fraction fields. In Stage 2, the priority
+        selector multiplexer evaluates the zero flag and bypasses the normalization logic, directly routing the correct zero representation (`32'h00000000`) to the output register, ensuring strict IEEE-754 compliance and preventing any unnecessary computation.</p>
 
       <h4>Case 3: NaN Handling (NaN × 2.0)</h4>
       <ul>
@@ -643,10 +709,11 @@
         <li><b>Input B:</b> `2.0` = `32'h40000000`</li>
         <li><b>Expected Y:</b> `NaN` = `32'h7FC00000` (Quiet NaN)</li>
       </ul>
-      <div class="diagram" id="diagram-waveform-nan">
+      <figure class="diagram" id="diagram-waveform-nan">
         <img src="assets/waveform_nan.png" alt="Simulation waveform for NaN multiplication"
-          onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>[NaN Handling Waveform - Image: assets/waveform_nan.png]</div>'">
-      </div>
+          onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>[Figure 8: Simulation Waveform - NaN Handling - Image: assets/waveform_nan.png]</div>'">
+        <figcaption><strong>Fig. 8:</strong> Simulation Waveform - NaN Handling</figcaption>
+      </figure>
       <p>The waveform confirms that as soon as the NaN input is detected, the NaN logic takes highest priority. The
         output `y` is forced to `7FC00000`, which is the canonical quiet NaN representation hardcoded in our design,
         propagating the NaN state as required by the standard. Infinity Handling (Inf × 2.0) and the (Inf × 0) cases

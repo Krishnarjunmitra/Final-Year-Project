@@ -1,6 +1,7 @@
-const diagrams = [
+const figures = [
   {
     id: 'ieee754-format',
+    figNum: 1,
     title: 'IEEE-754 Single-Precision Format',
     filename: 'ieee754_format.png',
     alt: 'IEEE-754 32-bit floating point format showing sign, exponent, and fraction fields',
@@ -9,6 +10,7 @@ const diagrams = [
   },
   {
     id: 'proposed-architecture',
+    figNum: 2,
     title: 'Proposed Floating Point Multiplier Architecture',
     filename: 'proposed_architecture.png',
     alt: 'Block diagram of the proposed floating point multiplier architecture',
@@ -17,6 +19,7 @@ const diagrams = [
   },
   {
     id: 'pipeline-architecture',
+    figNum: 3,
     title: 'Two-Stage Pipeline Architecture',
     filename: 'pipeline_architecture.png',
     alt: 'Pipeline architecture diagram showing Stage 1 and Stage 2',
@@ -25,6 +28,7 @@ const diagrams = [
   },
   {
     id: 'vedic-hierarchy',
+    figNum: 4,
     title: 'Vedic Multiplier Hierarchy',
     filename: 'vedic_hierarchy.png',
     alt: 'Hierarchical structure of Vedic multiplier from 3x3 to 24x24',
@@ -33,6 +37,7 @@ const diagrams = [
   },
   {
     id: 'rtl-schematic',
+    figNum: 5,
     title: 'RTL Schematic',
     filename: 'rtl_schematic.png',
     alt: 'Register Transfer Level schematic from Vivado synthesis',
@@ -41,6 +46,7 @@ const diagrams = [
   },
   {
     id: 'waveform-normal',
+    figNum: 6,
     title: 'Simulation Waveform - Normal Operation',
     filename: 'waveform_normal.png',
     alt: 'Simulation waveform for normal multiplication (3.5 × -2.0)',
@@ -49,6 +55,7 @@ const diagrams = [
   },
   {
     id: 'waveform-zero',
+    figNum: 7,
     title: 'Simulation Waveform - Zero Handling',
     filename: 'waveform_zero.png',
     alt: 'Simulation waveform for zero multiplication (0 × 5.0)',
@@ -57,6 +64,7 @@ const diagrams = [
   },
   {
     id: 'waveform-nan',
+    figNum: 8,
     title: 'Simulation Waveform - NaN Handling',
     filename: 'waveform_nan.png',
     alt: 'Simulation waveform for NaN multiplication',
@@ -66,61 +74,65 @@ const diagrams = [
 ];
 
 /**
- * Get diagram path by ID
- * @param {string} id - Diagram identifier
- * @returns {string} - Full path to diagram image
+ * Get figure path by ID
+ * @param {string} id - Figure identifier
+ * @returns {string} - Full path to figure image
  */
-function getDiagramPath(id) {
-  const diagram = diagrams.find(d => d.id === id);
-  return diagram ? `assets/${diagram.filename}` : null;
+function getFigurePath(id) {
+  const figure = figures.find(f => f.id === id);
+  return figure ? `assets/${figure.filename}` : null;
 }
 
 /**
- * Get diagram by ID
- * @param {string} id - Diagram identifier
- * @returns {object|null} - Diagram configuration object
+ * Get figure by ID
+ * @param {string} id - Figure identifier
+ * @returns {object|null} - Figure configuration object
  */
-function getDiagram(id) {
-  return diagrams.find(d => d.id === id) || null;
+function getFigure(id) {
+  return figures.find(f => f.id === id) || null;
 }
 
 /**
- * Get all diagrams for a specific section
+ * Get all figures for a specific section
  * @param {number} section - Section number
- * @returns {array} - Array of diagram objects
+ * @returns {array} - Array of figure objects
  */
-function getDiagramsBySection(section) {
-  return diagrams.filter(d => d.section === section);
+function getFiguresBySection(section) {
+  return figures.filter(f => f.section === section);
 }
 
 /**
- * Create HTML img element for a diagram
- * @param {string} id - Diagram identifier
- * @returns {string} - HTML string for img element
+ * Create HTML figure element with caption
+ * @param {string} id - Figure identifier
+ * @returns {string} - HTML string for figure element with figcaption
  */
-function createDiagramHTML(id) {
-  const diagram = getDiagram(id);
-  if (!diagram) return '';
+function createFigureHTML(id) {
+  const figure = getFigure(id);
+  if (!figure) return '';
   
-  return `<img src="assets/${diagram.filename}" alt="${diagram.alt}" style="width:100%; max-width:800px; height:auto; display:block; margin:15px auto;" />`;
+  return `<figure class="diagram" id="diagram-${figure.id}">
+    <img src="assets/${figure.filename}" alt="${figure.alt}" 
+         onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>[Figure ${figure.figNum}: ${figure.title} - Image: assets/${figure.filename}]</div>'">
+    <figcaption><strong>Fig. ${figure.figNum}:</strong> ${figure.title}</figcaption>
+  </figure>`;
 }
 
 // Export for use in other modules
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
-    diagrams,
-    getDiagramPath,
-    getDiagram,
-    getDiagramsBySection,
-    createDiagramHTML
+    figures,
+    getFigurePath,
+    getFigure,
+    getFiguresBySection,
+    createFigureHTML
   };
 }
 
 // Make available globally for HTML usage
-window.DiagramManager = {
-  diagrams,
-  getDiagramPath,
-  getDiagram,
-  getDiagramsBySection,
-  createDiagramHTML
+window.FigureManager = {
+  figures,
+  getFigurePath,
+  getFigure,
+  getFiguresBySection,
+  createFigureHTML
 };

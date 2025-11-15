@@ -6,6 +6,58 @@
       --accent-hover: #062b65;
       --text: #1f2d3d;
       --text-light: #5b6b7c;
+
+      /* Desktop Typography */
+      --title-h1: 24pt;
+      --title-h2: 16pt;
+      --title-h3: 14pt;
+      --title-meta: 14pt;
+      --preface-h2: 16pt;
+      --preface-text: 11pt;
+      --preface-bio: 10.5pt;
+      --main-h3: 14pt;
+      --main-h4: 12pt;
+      --main-text: 11pt;
+      --abstract-text: 11pt;
+      --keywords-text: 11pt;
+      --formula-text: 11pt;
+    }
+
+    /* Mobile Typography Variables */
+    @media screen and (max-width: 768px) {
+      :root {
+        --title-h1: 15pt;
+        --title-h2: 11pt;
+        --title-h3: 10pt;
+        --title-meta: 9.5pt;
+        --preface-h2: 11pt;
+        --preface-text: 8pt;
+        --preface-bio: 7.5pt;
+        --main-h3: 11pt;
+        --main-h4: 9.5pt;
+        --main-text: 8.5pt;
+        --abstract-text: 8pt;
+        --keywords-text: 7.5pt;
+        --formula-text: 8pt;
+      }
+    }
+
+    @media screen and (max-width: 640px) {
+      :root {
+        --title-h1: 13pt;
+        --title-h2: 10pt;
+        --title-h3: 9pt;
+        --title-meta: 9pt;
+        --preface-h2: 10pt;
+        --preface-text: 7.5pt;
+        --preface-bio: 7pt;
+        --main-h3: 10pt;
+        --main-h4: 9pt;
+        --main-text: 8pt;
+        --abstract-text: 7.5pt;
+        --keywords-text: 7pt;
+        --formula-text: 7.5pt;
+      }
     }
 
     html {
@@ -77,25 +129,25 @@
     }
 
     .title-page h1 {
-      font-size: 24pt;
+      font-size: var(--title-h1);
       font-weight: 900;
       margin-top: 1in;
       line-height: 1.25;
     }
 
     .title-page h2 {
-      font-size: 16pt;
+      font-size: var(--title-h2);
       font-weight: 400;
     }
 
     .title-page h3 {
-      font-size: 14pt;
+      font-size: var(--title-h3);
       font-weight: 700;
     }
 
     .title-page .authors,
     .title-page .supervisor {
-      font-size: 14pt;
+      font-size: var(--title-meta);
       line-height: 1.8;
     }
 
@@ -191,30 +243,25 @@
       }
 
       .title-page h1 {
-        font-size: 15pt;
         line-height: 1.25;
         margin-top: 20px;
         margin-bottom: 15px;
       }
 
       .title-page h2 {
-        font-size: 11pt;
         margin: 10px 0;
       }
 
       .title-page h3 {
-        font-size: 10pt;
         margin: 8px 0;
       }
 
       .title-page p {
-        font-size: 9pt;
         margin: 5px 0;
       }
 
       .title-page .authors,
       .title-page .supervisor {
-        font-size: 9.5pt;
         line-height: 1.5;
       }
 
@@ -237,19 +284,15 @@
       }
 
       .preface h2 {
-        font-size: 11pt;
         margin-bottom: 8px;
       }
 
       .preface p {
-        font-size: 8pt;
         line-height: 1.45;
         margin-bottom: 6px;
-        text-align: justify;
       }
 
       .preface ul {
-        font-size: 8pt;
         line-height: 1.45;
         padding-left: 15px;
         margin: 6px 0;
@@ -264,34 +307,29 @@
       }
 
       .author-bios li {
-        font-size: 7.5pt;
         line-height: 1.4;
       }
 
       .main-content h3 {
-        font-size: 11pt;
         margin: 15px 0 6px;
         padding-bottom: 2px;
         border-bottom-width: 0.8px;
       }
 
       .main-content h4 {
-        font-size: 9.5pt;
         margin: 10px 0 5px;
         font-weight: 600;
       }
 
-      .main-content p {
-        font-size: 8.5pt;
+      .main-content p,
+      .main-content ul,
+      .main-content ol {
         line-height: 1.5;
         margin: 0 0 7px;
-        text-align: justify;
       }
 
       .main-content ul,
       .main-content ol {
-        font-size: 8.5pt;
-        line-height: 1.5;
         padding-left: 18px;
         margin: 5px 0 10px;
       }
@@ -315,23 +353,18 @@
 
       .abstract h3,
       .keywords h3 {
-        font-size: 10pt;
         margin-bottom: 6px;
       }
 
       .abstract p {
-        font-size: 8pt;
         line-height: 1.45;
-        text-align: justify;
       }
 
       .keywords p {
-        font-size: 7.5pt;
         line-height: 1.4;
       }
 
       .formula {
-        font-size: 8pt;
         margin: 8px 0;
         padding: 8px;
         background: #f9f9f9;
@@ -344,6 +377,11 @@
 
       .diagram img {
         border-radius: 4px;
+      }
+
+      figcaption {
+        font-size: 8pt;
+        margin-top: 6px;
       }
 
       .schematic-section {
@@ -360,7 +398,7 @@
     }
 
     .main-content h3 {
-      font-size: 14pt;
+      font-size: var(--main-h3);
       font-weight: 700;
       color: #333;
       margin: 15px 0 5px;
@@ -371,20 +409,25 @@
     }
 
     .main-content h4 {
-      font-size: 12pt;
+      font-size: var(--main-h4);
       font-weight: 700;
       font-style: italic;
       margin: 10px 0 5px;
     }
 
     .main-content p,
-    .main-content ul {
-      font-size: 11pt;
+    .main-content ul,
+    .main-content ol {
+      font-size: var(--main-text);
       text-align: justify;
       margin: 0 0 10px;
     }
 
     .main-content ul {
+      padding-left: 20px;
+    }
+
+    .main-content ol {
       padding-left: 20px;
     }
 
@@ -411,6 +454,21 @@
       margin: 0 auto;
     }
 
+    figcaption {
+      text-align: center;
+      font-size: var(--main-text);
+      margin-top: 8px;
+      font-style: italic;
+      color: #333;
+      line-height: 1.4;
+    }
+
+    figcaption strong {
+      font-weight: 600;
+      font-style: normal;
+      color: #000;
+    }
+
     /* Large schematic styling */
     #diagram-rtl-schematic img {
       max-width: 1400px;
@@ -429,12 +487,20 @@
     }
 
     .schematic-section {
-      column-span: all;
       margin: 20px 0;
     }
 
     .schematic-section h3 {
+      font-weight: 700;
+    }
+
+    .schematic-intro {
       column-span: all;
+    }
+
+    .schematic-figure {
+      column-span: all;
+      margin: 20px 0;
     }
 
     @media print {
@@ -442,14 +508,13 @@
         max-width: 100%;
         width: 100%;
         page-break-inside: avoid;
-        transform: rotate(-90deg);
+        /* transform: rotate(-90deg); */
         transform-origin: center center;
-        margin: 3in 0;
+        /* margin: 3in 0; */
       }
 
       .schematic-section {
         page-break-before: auto;
-        page-break-inside: avoid;
       }
     }
 
@@ -674,14 +739,14 @@
 
     .preface h2 {
       margin: 0 0 10px 0;
-      font-size: 16pt;
+      font-size: var(--preface-h2);
       font-weight: 700;
       color: #222;
       text-align: center;
     }
 
     .preface p {
-      font-size: 11pt;
+      font-size: var(--preface-text);
       text-align: justify;
       margin: 0 0 10px;
     }
@@ -694,7 +759,7 @@
 
     .author-bios li {
       margin: 6px 0;
-      font-size: 10.5pt;
+      font-size: var(--preface-bio);
     }
 
     .author-bios strong {
@@ -823,6 +888,56 @@
       outline: none;
     }
 
+    /* Column layout toggle button */
+    .column-toggle {
+      position: fixed;
+      right: 14px;
+      top: 18px;
+      z-index: 800;
+      background: var(--accent);
+      color: #fff;
+      border: 1px solid #08306d;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-family: 'Source Sans 3', Arial, sans-serif;
+      font-size: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, .18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+    }
+
+    .column-toggle:hover {
+      background: var(--accent-hover);
+    }
+
+    .column-toggle:focus {
+      outline: none;
+    }
+
+    .column-toggle svg {
+      display: block;
+    }
+
+    /* Single column mode */
+    .main-content.single-column {
+      column-count: 1 !important;
+    }
+
+    @media screen and (max-width: 768px) {
+      .column-toggle {
+        display: none;
+      }
+    }
+
+    @media print {
+      .column-toggle {
+        display: none !important;
+      }
+    }
+
     .toc-drawer {
       position: fixed;
       top: 0;
@@ -876,39 +991,13 @@
       }
 
       .title-page h1 {
-        font-size: 13pt;
         line-height: 1.2;
-      }
-
-      .title-page h2 {
-        font-size: 10pt;
-      }
-
-      .title-page h3 {
-        font-size: 9pt;
-      }
-
-      .main-content h3 {
-        font-size: 10pt;
-      }
-
-      .main-content h4 {
-        font-size: 9pt;
       }
 
       .main-content p,
       .main-content ul,
       .main-content ol {
-        font-size: 8pt;
         line-height: 1.48;
-      }
-
-      .abstract p {
-        font-size: 7.5pt;
-      }
-
-      .keywords p {
-        font-size: 7pt;
       }
 
       .preface h2 {
@@ -931,6 +1020,10 @@
       .toc-drawer,
       .toc-toggle {
         display: none !important;
+      }
+
+      .page-break-before {
+        page-break-before: always;
       }
     }
 
@@ -1040,5 +1133,72 @@
     @media print {
       .site-footer {
         display: none;
+      }
+
+      /* Force two-column layout for print regardless of toggle state */
+      .main-content,
+      .main-content.single-column {
+        column-count: 2 !important;
+      }
+
+      /* Standard A4 Print Typography - Starting from Abstract section */
+      .abstract h3,
+      .keywords h3 {
+        font-size: 9.5pt !important;
+        font-weight: 700;
+      }
+
+      .abstract p,
+      .keywords p {
+        font-size: 9pt !important;
+        line-height: 1.4;
+      }
+
+      .main-content h3 {
+        font-size: 9.5pt !important;
+        font-weight: 700;
+      }
+
+      .main-content h4 {
+        font-size: 9pt !important;
+        font-weight: 700;
+      }
+
+      .main-content p,
+      .main-content ul,
+      .main-content ol,
+      .main-content li {
+        font-size: 9pt !important;
+        line-height: 1.4;
+      }
+
+      .formula {
+        font-size: 9pt !important;
+      }
+
+      figcaption {
+        font-size: 8.5pt !important;
+        margin-top: 6px;
+        page-break-before: avoid;
+        page-break-after: avoid;
+      }
+
+      figure.diagram {
+        page-break-inside: avoid;
+      }
+
+      .diagram-caption {
+        font-size: 8pt !important;
+      }
+
+      .schematic-section h3 {
+        font-size: 9.5pt !important;
+      }
+
+      .schematic-section p,
+      .schematic-section ul,
+      .schematic-section ol,
+      .schematic-section li {
+        font-size: 9pt !important;
       }
     }

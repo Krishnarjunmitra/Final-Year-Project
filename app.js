@@ -4,6 +4,7 @@
     buildTOC();
     initReadingProgress();
     initTOCDrawer();
+    initColumnToggle();
   });
 
   function buildTOC(){
@@ -138,5 +139,39 @@
         toggle.focus();
       }
     });
+  }
+
+  function initColumnToggle(){
+    const toggleBtn = document.getElementById('column-toggle');
+    const mainContent = document.querySelector('.main-content');
+    if(!toggleBtn || !mainContent) return;
+
+    // Check localStorage for saved preference
+    const savedMode = localStorage.getItem('columnMode');
+    if(savedMode === 'single'){
+      mainContent.classList.add('single-column');
+      updateToggleIcon(toggleBtn, true);
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      const isSingleColumn = mainContent.classList.toggle('single-column');
+      updateToggleIcon(toggleBtn, isSingleColumn);
+      
+      // Save preference
+      localStorage.setItem('columnMode', isSingleColumn ? 'single' : 'double');
+    });
+  }
+
+  function updateToggleIcon(btn, isSingleColumn){
+    const svg = btn.querySelector('svg');
+    if(!svg) return;
+
+    if(isSingleColumn){
+      // Single column icon - one wide rectangle
+      svg.innerHTML = '<rect x="6" y="4" width="12" height="16" fill="none" stroke="currentColor" stroke-width="2"/>';
+    } else {
+      // Double column icon - two rectangles
+      svg.innerHTML = '<rect x="3" y="4" width="8" height="16" fill="none" stroke="currentColor" stroke-width="2"/><rect x="13" y="4" width="8" height="16" fill="none" stroke="currentColor" stroke-width="2"/>';
+    }
   }
 })();
