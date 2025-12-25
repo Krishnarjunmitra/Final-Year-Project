@@ -325,7 +325,7 @@
         learning rely heavily on complex mathematical operations [1]. At the heart of these operations is floating-point
         (FP) arithmetic, which provides a wide dynamic range and high precision for representing real numbers [2].</p>
       <p>Within the suite of FP operations, floating-point multiplication is a fundamental and frequently executed
-        instruction. However, it is also one of the most resource-intensive and time-consuming, often forming the
+        instruction. However, it is also one of the most resource intensive and time consuming, often forming the
         critical path in a processor's datapath [3]. The complexity of an FP multiplier stems from its three main tasks:
         calculating the sign, adding the exponents, and most significantly multiplying the large mantissas.</p>
       <p>Traditional approaches to mantissa multiplication, such as the Booth encoding or array multipliers, have been
@@ -342,12 +342,12 @@
         per clock cycle, albeit with an initial two-cycle latency.</p>
       <p>This report details the design and implementation of a complete 32-bit single-precision floating-point
         multiplier. It combines the speed of a pipelined architecture with the structural efficiency of a
-        hierarchically-designed 24×24 Vedic mantissa multiplier. The entire system is implemented in Verilog HDL,
+        hierarchically designed 24×24 Vedic mantissa multiplier. The entire system is implemented in Verilog HDL,
         verified in Vivado, and handles all special cases (Zero, Inf, NaN) as specified by the IEEE-754 standard.</p>
       <p>The following sections cover the relevant literature, the IEEE-754 standard fundamentals, and the detailed architecture of our proposed multiplier.</p>
 
       <h3>2. Literature Review</h3>
-      <p>The optimization of floating-point multipliers is a well-established field of research. Our work builds upon a
+      <p>The optimization of floating-point multipliers is a well established field of research. Our work builds upon a
         significant body of existing literature while exploring a specific combination of techniques.</p>
       <p><b>Havaldar and Gurumurthy [4]</b> provide a foundational work by also proposing a design for an IEEE-754
         floating-point multiplier using Vedic mathematics. They highlight the Urdhva-Tiryagbhyam sutra's suitability for
@@ -357,7 +357,7 @@
         builds upon their general concept.</p>
       <p>In contrast, <b>Bai et al. [3]</b> focus on a different optimization route, employing an expanded Booth-Wallace
         algorithm. The Wallace tree is a highly optimized method for summing partial products, and Booth encoding is the
-        industry standard for reducing their number. This approach represents the "traditional" high-performance design.
+        industry standard for reducing their number. This approach represents the "traditional" high performance design.
         Our project intentionally diverges from this path to explore the Vedic algorithm as a viable alternative,
         comparing its design simplicity and structural regularity against the optimized but more complex Booth-Wallace
         method.</p>
@@ -541,9 +541,9 @@
         <li>`P2 = A_hi × B_lo` (high × low) – another cross-term for middle bits</li>
         <li>`P3 = A_hi × B_hi` (high × high) – represents the most significant portion</li>
       </ol>
-      <p>These four partial products are then summed with appropriate bit-shifts to produce the final 2N-bit result. The shifting accounts for the positional weight of each partial product in the final result:</p>
+      <p>These four partial products are then summed with appropriate bit shifts to produce the final 2N-bit result. The shifting accounts for the positional weight of each partial product in the final result:</p>
       <p class="formula"><i>P = (P3 &lt;&lt; N) + ((P1 + P2) &lt;&lt; (N/2)) + P0</i></p>
-      <p>This formulation reveals a critical advantage: all four partial products (`P0` through `P3`) can be computed simultaneously, as they have no data dependencies on each other. In hardware, this translates to four parallel multiplier instances operating concurrently, drastically reducing latency compared to sequential methods. Furthermore, the addition of these shifted partial products can be implemented using efficient multi-operand adder structures such as carry-save adders or Wallace/Dadda trees, which synthesis tools can automatically optimize.</p>
+      <p>This formulation reveals a critical advantage: all four partial products (`P0` through `P3`) can be computed simultaneously, as they have no data dependencies on each other. In hardware, this translates to four parallel multiplier instances operating concurrently, drastically reducing latency compared to sequential methods. Furthermore, the addition of these shifted partial products can be implemented using efficient multi operand adder structures such as carry save adders or Wallace/Dadda trees, which synthesis tools can automatically optimize.</p>
 
       <h4>Hierarchical Architecture</h4>
       <p>Our design applies the Urdhva-Tiryagbhyam principle recursively to build the 24×24 multiplier, creating a deeply hierarchical structure that maximizes regularity and design reuse. This recursive decomposition is conceptually elegant: each level of the hierarchy solves the same problem (multiplication) at a smaller scale, using identical algorithmic principles. From a hardware perspective, this yields a highly modular design where each level is independently verifiable, and the overall structure exhibits predictable timing and resource utilization characteristics.</p>
