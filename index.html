@@ -376,6 +376,69 @@
         concepts: a deep pipeline for throughput and the Urdhva-Tiryagbhyam algorithm for an efficient, parallel, and
         regular mantissa multiplier [4].</p>
 
+      <h4>2.1 Comparison with Recently Developed Methods</h4>
+      <p>Beyond classic array multipliers, recently developed floating-point (FP) multiplier designs—both in research and
+        in industrial practice—tend to cluster around a few recurring optimization themes: (i) reducing partial-product
+        reduction depth (compressor trees), (ii) increasing throughput through deeper pipelining, (iii) exploiting
+        FPGA hard blocks (DSP slices), and (iv) relaxing exactness for efficiency in approximate/ML-oriented designs.
+        The proposed design (two-stage pipeline + hierarchical Vedic 24×24 mantissa multiplier) primarily targets (i)
+        and (ii) through structural regularity and modular decomposition.</p>
+
+      <p><b>Booth + compressor-tree (Wallace/Dadda) mantissa datapaths:</b> A large fraction of modern high-speed FP
+        multipliers continue to use Booth recoding to reduce the number of partial products and then rely on a
+        Wallace/Dadda-style compressor tree to minimize reduction delay [3]. This approach remains a strong baseline
+        for worst-case mantissa speed and is widely supported by mature synthesis and timing-closure methodologies.
+        The key trade-off is irregularity: compressor trees can lead to less predictable routing and can be more
+        demanding to debug and verify. In comparison, the proposed hierarchical Vedic 24×24 structure is highly regular
+        and modular (3×3 → 6×6 → 12×12 → 24×24), which improves design clarity and enables independent verification of
+        each hierarchy level; however, compressor-tree families often define the “peak-speed” reference point in
+        aggressively optimized datapaths.</p>
+
+      <p><b>Adaptive / multi-path mantissa processing (MPM) and input-dependent acceleration:</b> Recent work also explores
+        input-sensitive techniques that attempt to reduce average-case computation by selecting shorter datapaths or
+        exploiting operand patterns (e.g., leading-zero structure), as seen in Multi-Path Mantissa Processing (MPM) [2].
+        While such designs can improve average throughput or energy, they introduce additional control complexity and a
+        broader corner-case surface, which may reduce predictability in timing closure. The proposed method instead
+        emphasizes deterministic synchronous timing: a fixed two-stage pipeline with stable stage boundaries and
+        predictable latency.</p>
+
+      <p><b>Deeper pipelining (industrial-style FP/FMA units):</b> Another common contemporary direction is to increase the
+        maximum operating frequency by spreading mantissa reduction, normalization, rounding, and exception logic over
+        more pipeline stages (often in fused multiply-add oriented units). This can sustain one result per cycle after
+        pipeline fill, but increases latency, register count, and control/forwarding overhead. The proposed two-stage
+        pipeline occupies a balanced point: it breaks the critical path relative to a single-cycle design while keeping
+        latency and control complexity modest—an important consideration for educational clarity and clean integration
+        into larger synchronous systems.</p>
+
+      <p><b>DSP-slice-centric mapping on FPGA:</b> On FPGA platforms, many recent designs prioritize mapping the mantissa
+        multiplication onto dedicated DSP blocks (via inference or explicit primitives) to improve performance-per-area
+        and achieve predictable timing. This approach can outperform LUT-based multipliers when DSP resources and
+        placement are favorable, but its portability is tied to the target FPGA family and it does not directly reflect
+        ASIC-oriented datapath trade-offs. The proposed hierarchical Vedic multiplier is technology-agnostic RTL, making
+        it portable and easy to study; depending on the FPGA target, the same RTL may still be guided toward DSP usage
+        by synthesis constraints if the implementation goal is peak FPGA efficiency.</p>
+
+      <p><b>Hybrid divide-and-conquer multipliers (Karatsuba/Toom-Cook) and larger precisions:</b> For higher precisions,
+        recent approaches sometimes employ Karatsuba/Toom-Cook style decompositions to reduce asymptotic multiplication
+        cost, trading fewer large multiplications for additional additions and recombination logic. These benefits are
+        typically more pronounced beyond 24-bit mantissa widths. For the 24×24 mantissa case, the proposed method
+        prioritizes structural regularity and straightforward composition, which supports predictable pipelining and
+        simplifies verification.</p>
+
+      <p><b>Approximate / truncated multipliers for ML/DSP:</b> A distinct modern design point is to intentionally relax
+        bit-exactness (for example, truncating lower partial products or using approximate adders) to reduce area/power
+        and increase speed in error-tolerant workloads. Such methods require explicit error characterization and are not
+        IEEE-754 bit-exact. In contrast, the proposed design targets deterministic correctness and IEEE-754 compliant
+        special-case semantics (Zero, Inf, NaN), making it suitable for general-purpose arithmetic pipelines.</p>
+
+      <p><b>Summary:</b> Relative to many recently developed approaches, the proposed method’s main advantage is the
+        combination of (a) strict, predictable synchronous timing (fixed two-cycle latency), (b) a highly modular and
+        reusable mantissa multiplier hierarchy (3×3 → 6×6 → 12×12 → 24×24), and (c) straightforward verification by
+        unit-testing each hierarchy level. Designs optimized for absolute peak frequency on a specific FPGA may prefer
+        DSP-centric mapping, while designs targeting maximum worst-case mantissa speed on ASICs often favor
+        Booth/compressor-tree structures; the proposed architecture aims for a clear, scalable, and pipeline-friendly
+        design point that remains competitive in regularity and verification effort.</p>
+
       <h3>3. IEEE-754 Floating Point Format</h3>
       <p>The IEEE-754 standard defines the representation of floating-point numbers in binary. This project implements
         the 32-bit single-precision format.</p>
